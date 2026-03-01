@@ -208,3 +208,26 @@ void WorldUtil::destroyBlock( Vec3<int> pos, int side, bool useTransac) {
     //PacketUtils::queueSend(pkt, false);
     GI::getPacketSender()->sendToServer(pkt.get());
 }
+
+float WorldUtil::getExposure(const Vec3<float>& pos, const AABB& aabb, const int& ignoredBlock) {
+    const BlockPos blockPos(static_cast<int>(pos.x), static_cast<int>(pos.y),
+                            static_cast<int>(pos.z));
+    Block* block = WorldUtil::getBlock(blockPos);
+    if(!block || !block->blockLegacy)
+        return 0.f;
+
+    if(block->blockLegacy->blockId != ignoredBlock)
+        return WorldUtil::getSeenPercent(pos, aabb);
+    else {
+        const Vec3<float>& min = aabb.lower;
+        if(pos.y > min.y) {
+            BlockPos belowPos(static_cast<int>(pos.x), static_cast<int>(pos.y - 1.f),
+                              static_cast<int>(pos.z));
+            Block* belowBlock = WorldUtil::getBlock(belowPos);
+            if(belowBlock && belowBlock->blockLegacy && belowBlock->blockLegacy->getmSolid())
+                return 0.f;
+        }
+    }
+
+    return 0.f;
+}

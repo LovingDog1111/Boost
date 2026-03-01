@@ -186,7 +186,7 @@
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\DamageText.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\InfinityAura.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\AboveAura.cpp" />
-    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAuraH.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAura.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\Switcher.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\Hitbox.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\Reach.cpp" />
@@ -451,7 +451,7 @@
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\Hitbox.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\InfinityAura.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\AboveAura.h" />
-    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAuraH.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAura.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\Reach.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\Surround.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\Switcher.h" />

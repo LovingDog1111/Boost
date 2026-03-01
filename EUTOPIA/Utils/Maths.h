@@ -123,6 +123,17 @@ struct Vec3 {
 		return Vec3<T>(x + o.x, y + o.y, z + o.z);
 	}
 
+	Vec3<T> add3(const Vec3<T>& o) const {
+        return Vec3<T>(x + o.x, y + o.y, z + o.z);
+    }
+
+    Vec3<T> add3(const T o) const {
+        return Vec3<T>(x + o, y + o, z + o);
+    }
+
+    Vec3<T> add3(const T _x, const T _y, const T _z) const {
+        return Vec3<T>(x + _x, y + _y, z + _z);
+    }
 
 	Vec3<T> sub(const Vec3<T>& o) const {
 		return Vec3<T>(x - o.x, y - o.y, z - o.z);

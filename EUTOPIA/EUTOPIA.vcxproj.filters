@@ -170,7 +170,7 @@
     <ClCompile Include="Client\Managers\CommandManager\Commands\SetSMCommand.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\World\SMTransfer.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\World\BaseBot.cpp" />
-    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAuraH.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAura.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Misc\FriendJoin.cpp" />
     <ClCompile Include="Client\Managers\CommandManager\Commands\FJoinCommand.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\AutoKill.cpp" />
@@ -968,7 +968,7 @@
     <ClInclude Include="Client\Managers\CommandManager\Commands\SetSMCommand.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\World\SMTransfer.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\World\BaseBot.h" />
-    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAuraH.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\KillAura.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Misc\FriendJoin.h" />
     <ClInclude Include="Client\Managers\CommandManager\Commands\FJoinCommand.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\AutoKill.h" />

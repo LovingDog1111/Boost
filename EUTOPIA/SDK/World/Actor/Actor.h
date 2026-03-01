@@ -11,6 +11,11 @@
 #include "../Inventory/PlayerInventory.h"
 #include "../Inventory/SimpleContainer.h"
 #include "../Level/Level.h"
+#include "../Utils\Minecraft\ActorCache.h"
+#include "../Utils\Minecraft\ActorUtils.h"
+#include "..\Utils\Minecraft\PacketUtil.h"
+#include "..\Utils\Minecraft\Utils.h"
+#include "..\Utils\PlusUtils.h"
 #include "ActorFlags.h"
 #include "Components/AABBShapeComponent.h"
 #include "Components/ActorDataFlagComponent.h"
@@ -31,18 +36,13 @@
 #include "Components/RuntimeIDComponent.h"
 #include "Components/StateVectorComponent.h"
 #include "GameMode.h"
-#include "../Utils\Minecraft\ActorUtils.h"
-#include "../Utils\Minecraft\ActorCache.h"
-#include "..\Utils\Minecraft\Utils.h"
-#include "..\Utils\PlusUtils.h"
-#include "..\Utils\Minecraft\PacketUtil.h"
 
 class Actor {
    public:
     void setGameType(int gameType);
     void setPos(Vec3<float> pos);
     void sendToSelf(const std::shared_ptr<Packet>& packet);
-    void SetPosition(StateVectorComponent* Component,  Vec3<float> Position);
+    void SetPosition(StateVectorComponent* Component, Vec3<float> Position);
     void setPos2(Vec3<float> pos);
     void teleport(Actor* actor, const Vec3<float>& pos);
 
@@ -53,7 +53,7 @@ class Actor {
     CLASS_MEMBER(StateVectorComponent*, stateVector, 0x290);
     CLASS_MEMBER(bool, swinging, 0x42C)
     CLASS_MEMBER(PlayerInventory*, supplies, 0x5c8);
-    //CLASS_MEMBER(ActorRotationComponent*, rotation, 0x2A0);
+    // CLASS_MEMBER(ActorRotationComponent*, rotation, 0x2A0);
 
     Vec3<float> getHumanPos() {
         Vec3<float> targetPos = this->getEyePos();
@@ -78,8 +78,11 @@ class Actor {
             21, this, pos, shouldStopRiding, a, b, keepVelocity);
     }
 
-
-
+    Vec3<int> getIntegerPositionFromAABB() {
+        Vec3<float> center = getAABB(true).getCenter();
+        auto toBlock = [](float val) -> int { return static_cast<int>(std::floor(val)); };
+        return Vec3<int>{toBlock(center.x), toBlock(getAABB(true).lower.y), toBlock(center.z)};
+    }
 
     int getOldSwingProgress() {
         if(this == nullptr)
@@ -201,10 +204,6 @@ class Actor {
         }
         return comp->mPosition;
     }
-
-   
-
-
 
     void swing() {
         MemoryUtil::callVirtualFunc<void>(111, this);

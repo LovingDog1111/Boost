@@ -30,5 +30,5 @@ namespace WorldUtil {
     void startDestroyBlock(Vec3<int> pos, int side);
     void destroyBlock(Vec3<int> pos, int side, bool useTransac);
     Block* getBlock(const BlockPos& blockPos);
-
+    float getExposure(const Vec3<float>& pos, const AABB& aabb, const int& ignoredBlock);
     } 

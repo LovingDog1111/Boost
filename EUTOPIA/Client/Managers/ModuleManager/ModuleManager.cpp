@@ -20,7 +20,7 @@ void ModuleManager::init() {
     moduleList.push_back(new AntiHit());
     moduleList.push_back(new AutoKill());
     moduleList.push_back(new AboveAura());
-    moduleList.push_back(new KillAuraH2());
+    moduleList.push_back(new KillAura());
     moduleList.push_back(new AutoClicker());
     moduleList.push_back(new BowSpam());
     moduleList.push_back(new Watermark());

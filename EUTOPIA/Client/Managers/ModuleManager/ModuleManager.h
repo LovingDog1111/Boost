@@ -13,7 +13,7 @@
 #include "Modules/Category/Client/CustomFont.h"
 #include "Modules/Category/Client/ToggleSounds.h"
 #include "Modules/Category/Combat/AutoKill.h"
-#include "Modules/Category/Combat/KillAuraH.h"
+#include "Modules/Category/Combat/KillAura.h"
 #include "Modules/Category/Misc/FriendJoin.h"
 #include "Modules/Category/Misc/PacketCounter.h"
 #include "Modules/Category/Misc/PlayerCounter.h"
