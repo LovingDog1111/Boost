@@ -248,6 +248,7 @@
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Player\PopCounter.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Player\SurfaceTP.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Player\TargetInfo.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Arraylist.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\BlockHighLight.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\BlockTracer.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Breakindicators.cpp" />
@@ -262,10 +263,10 @@
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\FullBright.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\GlintColor.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\HitVisuals.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Hud.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Keystrokes.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\MobTags.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\NameTag.cpp" />
-    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\NametagsV2.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\NewChunks.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\NoCameraClip.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\NoHurtCam.cpp" />
@@ -279,6 +280,7 @@
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\TargetHUD.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Tracer.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\ViewModel.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Watermark.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Test\TestModule.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\World\AirPlace.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\World\AntiVoid.cpp" />
@@ -510,6 +512,7 @@
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Player\PopCounter.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Player\SurfaceTP.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Player\TargetInfo.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Arraylist.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\BlockHighLight.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\BlockTracer.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Breakindicators.h" />
@@ -524,11 +527,11 @@
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\FullBright.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\GlintColor.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\HitVisuals.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Hud.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\HurtColor.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Keystrokes.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\MobTags.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\NameTag.h" />
-    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\NametagsV2.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\NewChunks.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\NoCameraClip.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\NoHurtCam.h" />
@@ -542,6 +545,7 @@
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\TargetHUD.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Tracer.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\ViewModel.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Watermark.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\World\AntiVoid.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\World\ItemTeleport.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\World\Spawn.h" />

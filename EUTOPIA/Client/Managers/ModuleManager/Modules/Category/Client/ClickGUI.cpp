@@ -1137,9 +1137,6 @@ void ClickGUI::Render() {
         D2D::fillRectangle(rectPos, UIColor(0, 0, 0, 125));
         D2D::drawText(textPos, descriptionText, UIColor(255, 255, 255), 0.8f);
     }
-
-    isLeftClickDown = false;
-    isRightClickDown = false;
 }
 
 void ClickGUI::updateSelectedAnimRect(Vec4<float>& rect, float& anim) {

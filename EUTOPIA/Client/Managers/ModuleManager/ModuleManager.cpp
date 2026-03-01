@@ -23,6 +23,9 @@ void ModuleManager::init() {
     moduleList.push_back(new KillAuraH2());
     moduleList.push_back(new AutoClicker());
     moduleList.push_back(new BowSpam());
+    moduleList.push_back(new Watermark());
+    moduleList.push_back(new Hud());
+    moduleList.push_back(new ArrayList());
     moduleList.push_back(new Criticals());
     moduleList.push_back(new CriticalsLB());
     moduleList.push_back(new DamageText());
@@ -68,7 +71,6 @@ void ModuleManager::init() {
     moduleList.push_back(new SurfaceTP());
     moduleList.push_back(new PlayerScanner());
     moduleList.push_back(new BlockTracer());
-    moduleList.push_back(new NameTags2());
     moduleList.push_back(new TargetHUD());
     moduleList.push_back(new HitVisuals());
     moduleList.push_back(new BlockHighlight());

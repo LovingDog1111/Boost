@@ -195,7 +195,6 @@
     <ClCompile Include="Utils\Minecraft\ItemUtils.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Player\AutoArmor.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\TargetHUD.cpp" />
-    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\NametagsV2.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Combat\AutoSwitch.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Movement\FastStop.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\World\WorldScanner.cpp" />
@@ -216,6 +215,9 @@
     <ClCompile Include="Client\Managers\ModuleManager\Modules\ModuleBase\Module.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Client\Audio.cpp" />
     <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Client\AudioData.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Arraylist.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Watermark.cpp" />
+    <ClCompile Include="Client\Managers\ModuleManager\Modules\Category\Render\Hud.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client\Client.h" />
@@ -994,7 +996,6 @@
     <ClInclude Include="Utils\Minecraft\ItemUtils.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Player\AutoArmor.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\TargetHUD.h" />
-    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\NametagsV2.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Combat\AutoSwitch.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Movement\FastStop.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\World\WorldScanner.h" />
@@ -1031,6 +1032,9 @@
     <ClInclude Include="Client\Managers\ModuleManager\Modules\ModuleBase\Settings\Vec3Setting.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Client\Audio.h" />
     <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Client\AudioData.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Arraylist.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Watermark.h" />
+    <ClInclude Include="Client\Managers\ModuleManager\Modules\Category\Render\Hud.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="Libs\libhat\libhat.lib" />

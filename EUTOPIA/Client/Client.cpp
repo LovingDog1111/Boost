@@ -62,7 +62,7 @@ void Client::DisplayClientMessage(const char* fmt, ...) {
     static std::string headerMessage;
     if(headerMessage.empty()) {
         char headerCStr[50];
-        sprintf_s(headerCStr, 50, "%s[%sBoostV4%s] %s", MCTF::GRAY, MCTF::BLUE, MCTF::GRAY,
+        sprintf_s(headerCStr, 50, "%s[%sBoost%s] %s", MCTF::GRAY, MCTF::AQUA, MCTF::GRAY,
                   MCTF::WHITE);
         headerMessage = std::string(headerCStr);
     }
