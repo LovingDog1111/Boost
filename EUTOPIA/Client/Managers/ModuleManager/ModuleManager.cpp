@@ -200,8 +200,6 @@ void ModuleManager::init() {
   
 }
 
-
-
 void ModuleManager::shutdown() {
     for(auto& mod : moduleList) {
         mod->setEnabled(false);

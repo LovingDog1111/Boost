@@ -159,13 +159,13 @@ void HUD::onD2DRender() {
         UIColor mainColor = colorsModule->getColor();
 
         if(!hwidChecked) {
-            hwidVerified = verifydahwidboi2("http://43.226.0.155:5000/get_hwids2");
+            hwidVerified = true;
             hwidChecked = true;
         }
 
         std::string part1 = "Boost";
-        std::string part2 = hwidVerified ? "+" : " v4";
-
+        std::string part2 = hwidVerified ? "+" : " v4"; //lol?
+         
         float x = offset;
         float y = offset;
 

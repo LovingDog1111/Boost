@@ -1,16 +1,13 @@
 #include "Client.h"
-
 #include <NetworkUtil.h>
 #include <Windows.h>
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.UI.Notifications.h>
-
 #include <algorithm>
 #include <sstream>
 #include <string>
 #include <regex>
-
 #include "../SDK/Core/MinecraftGame.h"
 #include "../SDK/GlobalInstance.h"
 #include "../SDK/MCTextFormat.h"
@@ -25,7 +22,6 @@
 #include "winrt/windows.applicationmodel.core.h"
 #include "winrt/windows.system.h"
 #include <ConsoleUtil.h>
-
 
 void Client::DisplayIRCMessage(const char* fmt, ...) {
     LocalPlayer* localPlayer = GI::getLocalPlayer();
@@ -87,17 +83,11 @@ void RenameWindow(const char* newTitle) {
     }
 }
 
-
-
-
 void Client::init() {
-
     std::string ClientPath = FileUtil::getClientPath();
     if(!FileUtil::doesFilePathExist(ClientPath)) {
         FileUtil::createPath(ClientPath);
     }
-
-
 
     if(GI::getClientInstance() && GI::getClientInstance()->minecraftGame) {
         GI::getClientInstance()->minecraftGame->playUI("random.levelup", 1.0f, 1.0f);
@@ -113,6 +103,7 @@ void Client::init() {
     ConfigManager::init();
     MCTF::initMCTF();
     ModuleManager::minit();
+    ModuleManager::init();
     CommandManager::init();
     HookManager::init();
 
@@ -128,8 +119,6 @@ void Client::init() {
         ConfigManager::createNewConfig("default");
     ConfigManager::loadConfig("default");
 }
-
-
 
 void Client::shutdown() {
     ConfigManager::saveConfig();
