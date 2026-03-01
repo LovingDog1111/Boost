@@ -225,7 +225,8 @@ void ModuleManager::onUpdateRotation(LocalPlayer* localPlayer) {
 void ModuleManager::onSendPacket(Packet* packet) {
     if(!Client::isInitialized())
         return;
-
+    if(!GI::getLocalPlayer())
+        return;
     for(auto& mod : moduleList) {
         if(mod->isEnabled() || mod->runOnBackground()) {
             bool ok = false;
@@ -237,7 +238,8 @@ void ModuleManager::onSendPacket(Packet* packet) {
 void ModuleManager::onRecievePacket(Packet* packet, bool* cancel) {
     if(!Client::isInitialized())
         return;
-
+    if(!GI::getLocalPlayer())
+        return;
     if(!packet)
         return;
 

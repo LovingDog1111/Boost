@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include "..\Utils\Minecraft\BlockUtils.h"
+#include "..\\Utils\\Minecraft\\BlockUtils.h"
 
 AntiVoid::AntiVoid() : Module("AntiVoid", "Prevent falling into the void", Category::WORLD) {
     registerSetting(new BoolSetting("Teleport", "Teleport back when falling", &mTeleport, true));
@@ -13,10 +13,17 @@ void AntiVoid::onEnable() {
     auto player = Game.getLocalPlayer();
     if(!player)
         return;
+
+    mOnGroundPositions.clear();
+    mTeleported = false;
+    mCanTeleport = true;
 }
 
 void AntiVoid::onNormalTick(LocalPlayer* player) {
     if(!player)
+        return;
+
+    if(!player->level)
         return;
 
     Vec3<float> playerPos = player->getPos();
@@ -47,13 +54,14 @@ void AntiVoid::onNormalTick(LocalPlayer* player) {
             return;
         }
 
-        Vec3<float> bestPos(0.0f, 0.0f, 0.0f);
-        bool found = false;
-        auto inverted = mOnGroundPositions;
-        std::reverse(inverted.begin(), inverted.end());
+        if(mOnGroundPositions.empty())
+            return;
 
-        for(auto& pos : inverted) {
-            Vec3<float> blockPos(pos.x, pos.y - 2.0f, pos.z);
+        Vec3<float> bestPos(0.f, 0.f, 0.f);
+        bool found = false;
+
+        for(auto it = mOnGroundPositions.rbegin(); it != mOnGroundPositions.rend(); ++it) {
+            Vec3<float> blockPos(it->x, it->y - 2.0f, it->z);
             if(BlockUtils::isGoodBlock(blockPos)) {
                 bestPos = blockPos;
                 found = true;
@@ -69,12 +77,13 @@ void AntiVoid::onNormalTick(LocalPlayer* player) {
                           targetPos.z - playerPos.z);
 
         float dist = std::sqrt(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
-        if(dist < 0.001f)
+        if(dist <= 0.0001f || std::isnan(dist) || std::isinf(dist))
             return;
 
         float step = std::min(1.5f, dist);
-        Vec3<float> movement(delta.x * (step / dist), delta.y * (step / dist),
-                             delta.z * (step / dist));
+        float scale = step / dist;
+
+        Vec3<float> movement(delta.x * scale, delta.y * scale, delta.z * scale);
 
         player->lerpMotion(movement);
 

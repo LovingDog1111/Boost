@@ -8,22 +8,28 @@ AutoHub::AutoHub() : Module("AutoHub", "Auto /hub on low health", Category::WORL
                                            &healthThreshold, 1, 1, 20));
 }
 
-
 void AutoHub::onEnable() {
+    alreadyTeleported = false;
     GI::DisplayClientMessage("%s[AutoHub] Enabled", MCTF::GREEN);
 }
 
 void AutoHub::onDisable() {
+    alreadyTeleported = false;
     GI::DisplayClientMessage("%s[AutoHub] Disabled", MCTF::RED);
 }
 
+void AutoHub::sendHub() {
+    auto client = GI::getClientInstance();
+    if(!client || !client->packetSender)
+        return;
 
-
-
- void AutoHub::sendHub() {
-    GI::DisplayClientMessage("%s[AutoHub] Health low, teleporting to hub..", MCTF::RED);
     std::shared_ptr<Packet> packet = MinecraftPacket::createPacket(PacketID::CommandRequest);
+    if(!packet)
+        return;
+
     auto* pkt = reinterpret_cast<CommandRequestPacket*>(packet.get());
+    if(!pkt)
+        return;
 
     pkt->mCommand = "/hub";
     pkt->mInternalSource = false;
@@ -32,21 +38,25 @@ void AutoHub::onDisable() {
     pkt->mOrigin.mRequestId = "0";
     pkt->mOrigin.mUuid = mce::UUID();
 
-    auto client = GI::getClientInstance();
-    if(!client || !client->packetSender)
-        return;
+    GI::DisplayClientMessage("%s[AutoHub] Health low, teleporting to hub..", MCTF::RED);
 
     client->packetSender->sendToServer(pkt);
+
     GI::DisplayClientMessage("%s[AutoHub] Teleported to hub", MCTF::RED);
- }
+}
 
 void AutoHub::onNormalTick(LocalPlayer* localPlayer) {
-    if(!localPlayer || localPlayer->getHealth() <= 0)
+    if(!localPlayer)
+        return;
+
+    if(!localPlayer->level)
         return;
 
     float currentHealth = localPlayer->getHealth();
+    if(currentHealth <= 0.f)
+        return;
 
-    if(currentHealth <= healthThreshold) {
+    if(currentHealth <= static_cast<float>(healthThreshold)) {
         if(!alreadyTeleported) {
             sendHub();
             alreadyTeleported = true;

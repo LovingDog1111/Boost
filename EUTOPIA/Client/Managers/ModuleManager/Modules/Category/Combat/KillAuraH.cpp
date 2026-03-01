@@ -11,19 +11,14 @@
 #define M_PI 3.14159265358979323846
 #endif
 
+#include <Windows.h>
+
 #include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <random>
-
-#include <Windows.h>
-#include <wininet.h>
-#include <wincrypt.h>
 #include <string>
 #include <vector>
-#include <regex>
-#include <algorithm>
-#include "json.hpp"
 
 #include "../../../ModuleManager.h"
 
@@ -70,21 +65,25 @@ void KillAuraH2::onDisable() {
 }
 
 bool KillAuraH2::sortByDist(Actor* a1, Actor* a2) {
+    if(!a1 || !a2 || !GI::getLocalPlayer())
+        return false;
     Vec3<float> lpPos = GI::getLocalPlayer()->getPos();
     return a1->getPos().dist(lpPos) < a2->getPos().dist(lpPos);
 }
 
 void KillAuraH2::Attack(Actor* target) {
     LocalPlayer* localPlayer = GI::getLocalPlayer();
-    if(!localPlayer || !localPlayer->gamemode)
+    if(!localPlayer || !localPlayer->gamemode || !target)
         return;
     localPlayer->gamemode->attack(target);
     localPlayer->swing();
     attackCounter++;
 }
 
-bool KillAuraH2::Counter(double a1) {
-    if((GetTickCount64() - start) >= (a1 / aps)) {
+bool KillAuraH2::Counter(double delayMs) {
+    if(aps <= 0.0f)
+        return false;
+    if((GetTickCount64() - start) >= delayMs / aps) {
         start = GetTickCount64();
         return true;
     }
@@ -96,57 +95,20 @@ void KillAuraH2::updateAutoHookSpeed() {
         return;
 
     autoSpeedCounter++;
-
     switch(speedType) {
         case 0:
-            if(autoSpeedCounter % 5 == 0)
-                hookAmount = 8;
-            else if(autoSpeedCounter % 5 == 1)
-                hookAmount = 10;
-            else if(autoSpeedCounter % 5 == 2)
-                hookAmount = 6;
-            else if(autoSpeedCounter % 5 == 3)
-                hookAmount = 12;
-            else
-                hookAmount = 9;
+            hookAmount = 6 + (autoSpeedCounter % 7);
             break;
-
         case 1:
-            if(autoSpeedCounter % 8 == 0)
-                hookAmount = 3;
-            else if(autoSpeedCounter % 8 == 1)
-                hookAmount = 5;
-            else if(autoSpeedCounter % 8 == 2)
-                hookAmount = 4;
-            else if(autoSpeedCounter % 8 == 3)
-                hookAmount = 2;
-            else if(autoSpeedCounter % 8 == 4)
-                hookAmount = 6;
-            else if(autoSpeedCounter % 8 == 5)
-                hookAmount = 3;
-            else if(autoSpeedCounter % 8 == 6)
-                hookAmount = 4;
-            else
-                hookAmount = 5;
+            hookAmount = 2 + (autoSpeedCounter % 5);
             break;
-
         case 2:
-            if(autoSpeedCounter % 6 == 0)
-                hookAmount = 6;
-            else if(autoSpeedCounter % 6 == 1)
-                hookAmount = 8;
-            else if(autoSpeedCounter % 6 == 2)
-                hookAmount = 5;
-            else if(autoSpeedCounter % 6 == 3)
-                hookAmount = 7;
-            else if(autoSpeedCounter % 6 == 4)
-                hookAmount = 6;
-            else
-                hookAmount = 7;
+            hookAmount = 5 + (autoSpeedCounter % 4);
             break;
-
         case 3:
             hookAmount = rand() % 15 + 1;
+            break;
+        default:
             break;
     }
 
@@ -155,24 +117,21 @@ void KillAuraH2::updateAutoHookSpeed() {
 }
 
 void KillAuraH2::onNormalTick(LocalPlayer* player) {
-    if(!player)
-        return;
-
-    Level* level = player->level;
-    if(!level)
+    if(!player || !player->level)
         return;
 
     targetList.clear();
-    std::vector<Actor*> actors = player->level->getRuntimeActorList();
-    for(auto* entity : actors) {
+    auto actors = player->level->getRuntimeActorList();
 
+    for(auto* entity : actors) {
+        if(!entity)
+            continue;
         if(!TargetUtil::isTargetValid(entity, includeMobs))
             continue;
-        if(!entity->isAlive()) 
+        if(!entity->isAlive())
             continue;
         if(player->getPos().dist(entity->getPos()) <= range)
             targetList.push_back(entity);
-
     }
 
     if(targetList.empty()) {
@@ -183,120 +142,87 @@ void KillAuraH2::onNormalTick(LocalPlayer* player) {
     std::sort(targetList.begin(), targetList.end(),
               [this](Actor* a1, Actor* a2) { return sortByDist(a1, a2); });
 
+    Actor* target = targetList[0];
+    if(!target)
+        return;
+
     if(rotMode != 0 || strafe) {
-        Vec3<float> targetPos = targetList[0]->getEyePos();
+        Vec3<float> targetPos = target->getEyePos();
         rotAngle = player->getEyePos().CalcAngle(targetPos);
-        rotAngle5 = player->getEyePos().CalcAngle(targetPos);
-
-        if(strafe) {
-            Vec3<float> localPos = player->getPos();
-            float angle = atan2f(targetPos.z - localPos.z, targetPos.x - localPos.x);
-            float strafeDistance = 2.5f;
-            targetPos.x += cosf(angle + (M_PI / 2.0f)) * strafeDistance;
-            targetPos.z += sinf(angle + (M_PI / 2.0f)) * strafeDistance;
-            rotAngle = player->getEyePos().CalcAngle(targetPos);
-        }
-
+        rotAngle5 = rotAngle;
         shouldRotate = true;
     } else {
         shouldRotate = false;
     }
 
     if(Counter(1000.0)) {
-        Attack(targetList[0]);
+        Attack(target);
 
         if(enableHookSpeed) {
+            LocalPlayer* lp = GI::getLocalPlayer();
+            if(!lp || !lp->gamemode)
+                return;
+
             for(int i = 0; i < hookAmount; i++) {
-                LocalPlayer* localPlayer = GI::getLocalPlayer();
-                if(localPlayer && localPlayer->gamemode) {
-                    localPlayer->gamemode->attack(targetList[0]);
-                    localPlayer->swing();
-                    attackCounter++;
-                }
+                lp->gamemode->attack(target);
+                lp->swing();
             }
 
-            if(multiplier > 1) {
-                for(int i = 0; i < multiplier; i++) {
-                    LocalPlayer* localPlayer = GI::getLocalPlayer();
-                    if(localPlayer && localPlayer->gamemode) {
-                        localPlayer->gamemode->attack(targetList[0]);
-                        localPlayer->swing();
-                        attackCounter++;
-                    }
-                }
+            for(int i = 0; i < multiplier - 1; i++) {
+                lp->gamemode->attack(target);
+                lp->swing();
             }
 
-            if(autoHookSpeed) {
+            if(autoHookSpeed)
                 updateAutoHookSpeed();
-            }
         }
     }
 }
 
 void KillAuraH2::onUpdateRotation(LocalPlayer* player) {
-    if(!shouldRotate || targetList.empty() || !targetList[0]->isAlive() ||
-       (rotMode == 0 && !strafe))
+    if(!player || !shouldRotate || targetList.empty())
         return;
+
     Actor* target = targetList[0];
-
-
+    if(!target || !target->isAlive())
+        return;
 
     auto* rot = player->getActorRotationComponent();
     auto* head = player->getActorHeadRotationComponent();
     auto* body = player->getMobBodyRotationComponent();
-
     if(!rot)
         return;
 
     switch(rotMode) {
-        case 0:
-            return;
-
         case 1:
-            if(rot) {
-                rot->mPitch = rotAngle5.x;
-                rot->mYaw = rotAngle5.y;
-            }
-            if(head)
-                head->mHeadRot = rotAngle5.y;
-            if(body)
-                body->yBodyRot = rotAngle5.y;
-            break;
-
         case 2:
-            if(rot) {
-                rot->mPitch = rotAngle5.x;
-                rot->mYaw = rotAngle5.y;
-            }
+            rot->mPitch = rotAngle5.x;
+            rot->mYaw = rotAngle5.y;
             break;
 
-        case 3:
-            float distanceXZ1 = player->getPos().dist(Vec3<float>(
-                targetList[0]->getPos().x, player->getPos().y, targetList[0]->getPos().z));
-
-            float targetYaw = target->getActorRotationComponent()->mYaw;
-            float predictYaw = targetYaw + (headspeed - 90.0f);
-
-            float predictRad = predictYaw * (M_PI / 180.0f);
-            Vec3<float> targetPos = target->getPos();
-            Vec3<float> backwardOffset(-cos(predictRad) * test, 0, -sin(predictRad) * test);
-            Vec3<float> backwardPos =
-                Vec3<float>(targetPos.x + backwardOffset.x, targetPos.y + backwardOffset.y,
-                            targetPos.z + backwardOffset.z);
-
-            rotAngle = player->getPos().CalcAngle(backwardPos).normAngles();
-
-            if(rot) {
-                rot->mYaw = rotAngle.y;
-                rot->mPitch = rotAngle.x;
-            }
+        case 3: {
+            auto* targetRot = target->getActorRotationComponent();
+            if(!targetRot)
+                break;
+            float predictYaw = targetRot->mYaw + (headspeed - 90.0f);
+            float rad = predictYaw * (M_PI / 180.0f);
+            Vec3<float> tPos = target->getPos();
+            Vec3<float> offset(-cos(rad) * test, 0, -sin(rad) * test);
+            Vec3<float> predicted = tPos + offset;
+            Vec2<float> angle = player->getPos().CalcAngle(predicted).normAngles();
+            rot->mYaw = angle.y;
+            rot->mPitch = angle.x;
             break;
+        }
+
+        default:
+            return;
     }
 
     if(head)
-        head->mHeadRot = rotAngle.y;
+        head->mHeadRot = rot->mYaw;
     if(body)
-        body->yBodyRot = rotAngle.y;
+        body->yBodyRot = rot->mYaw;
 }
 
 void KillAuraH2::onLevelRender() {
@@ -304,66 +230,36 @@ void KillAuraH2::onLevelRender() {
     if(!player)
         return;
 
-    auto* levelRenderer = GI::getClientInstance()->getLevelRenderer();
-    if(!levelRenderer)
+    auto* client = GI::getClientInstance();
+    if(!client)
         return;
 
-    Vec3<float> origin = levelRenderer->getrenderplayer()->origin;
+    auto* renderer = client->getLevelRenderer();
+    if(!renderer || !renderer->getrenderplayer())
+        return;
 
-    if(visualRange) {
-        Vec3<float> pos = player->getPos() - origin;
-        std::vector<Vec3<float>> circlePoints;
-        const int segments = 90;
+    Vec3<float> origin = renderer->getrenderplayer()->origin;
 
-        for(int i = 0; i < segments; i++) {
-            float angle = (i * 2.0f * M_PI) / segments;
-            float x = pos.x + range * cosf(angle);
-            float z = pos.z + range * sinf(angle);
-            circlePoints.emplace_back(x, pos.y + 0.1f, z);
-        }
-
-        DrawUtil::setColor(UIColor(255, 0, 255, 255));
-        DrawUtil::tessellator->begin(VertextFormat::LINE_STRIP, 2);
-
-        for(const auto& point : circlePoints) {
-            DrawUtil::tessellator->vertex(point.x, point.y, point.z);
-        }
-
-        MeshHelpers::renderMeshImmediately(DrawUtil::screenCtx, DrawUtil::tessellator,
-                                           DrawUtil::blendMaterial);
-    }
-
-    if(visualTarget && !targetList.empty()) {
+    if(visualTarget && !targetList.empty() && targetList[0])
         drawTargetHighlight(targetList[0], origin, targetColor);
-    }
 }
 
 void KillAuraH2::drawTargetHighlight(Actor* target, Vec3<float> origin, UIColor color) {
-    auto now = std::chrono::steady_clock::now();
-    auto timeMs =
-        std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count();
-    float animation = sin(timeMs * 0.008f) * 0.2f;
+    if(!target)
+        return;
 
     Vec3<float> targetPos = target->getPos() - origin;
-    Vec3<float> circleCenter = {targetPos.x, targetPos.y - 0.8f + animation, targetPos.z};
-
     float radius = 0.7f;
     const int segments = 36;
-    std::vector<Vec3<float>> circlePoints;
-    circlePoints.reserve(segments + 1);
-
-    for(int i = 0; i <= segments; i++) {
-        float angle = (i * 2.0f * M_PI) / segments;
-        float x = circleCenter.x + radius * cosf(angle);
-        float z = circleCenter.z + radius * sinf(angle);
-        circlePoints.emplace_back(x, circleCenter.y, z);
-    }
 
     DrawUtil::setColor(color);
     DrawUtil::tessellator->begin(VertextFormat::LINE_STRIP, 2);
 
-    for(const auto& point : circlePoints) {
-        DrawUtil::tessellator->vertex(point.x, point.y, point.z);
+    for(int i = 0; i <= segments; i++) {
+        float angle = (i * 2.0f * M_PI) / segments;
+        float x = targetPos.x + radius * cosf(angle);
+        float z = targetPos.z + radius * sinf(angle);
+        DrawUtil::tessellator->vertex(x, targetPos.y, z);
     }
 
     MeshHelpers::renderMeshImmediately(DrawUtil::screenCtx, DrawUtil::tessellator,

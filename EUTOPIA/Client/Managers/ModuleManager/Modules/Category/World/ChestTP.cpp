@@ -13,7 +13,6 @@ ChestTP::ChestTP() : Module("ChestTP", "Move instantly to nearest chest", Catego
 
 void ChestTP::onNormalTick(LocalPlayer* player) {}
 
-
 void ChestTP::onEnable() {
     Game.DisplayClientMessage("%s[ChestTP] Enabled", MCTF::GREEN);
 
@@ -23,7 +22,13 @@ void ChestTP::onEnable() {
         return;
     }
 
-    BlockSource* region = Game.getClientInstance()->getRegion();
+    auto* ci = Game.getClientInstance();
+    if(!ci) {
+        setEnabled(false);
+        return;
+    }
+
+    BlockSource* region = ci->getRegion();
     if(!region) {
         setEnabled(false);
         return;
@@ -45,18 +50,20 @@ void ChestTP::onEnable() {
                 Block* block = region->getBlock(x, y, z);
                 if(!block || !block->blockLegacy)
                     continue;
+
                 if(block->blockLegacy->blockId != 54)
                     continue;
 
                 if(skipDoubleChests) {
                     Block* right = region->getBlock(x + 1, y, z);
                     Block* front = region->getBlock(x, y, z + 1);
+
                     if((right && right->blockLegacy && right->blockLegacy->blockId == 54) ||
                        (front && front->blockLegacy && front->blockLegacy->blockId == 54))
                         continue;
                 }
 
-                chestPositions.push_back(Vec3<float>(x + 0.5f, y + 2.0f, z + 0.5f));
+                chestPositions.emplace_back(x + 0.5f, y + 2.0f, z + 0.5f);
             }
         }
     }
@@ -69,7 +76,8 @@ void ChestTP::onEnable() {
 
     Vec3<float> closest = chestPositions[0];
     float closestDist = pos.dist(closest);
-    for(auto& c : chestPositions) {
+
+    for(const auto& c : chestPositions) {
         float d = pos.dist(c);
         if(d < closestDist) {
             closestDist = d;
@@ -78,7 +86,12 @@ void ChestTP::onEnable() {
     }
 
     Vec3<float> move = closest.sub(pos);
+
+    if(std::isnan(move.x) || std::isnan(move.y) || std::isnan(move.z))
+        return;
+
     player->lerpMotion(move);
+
     AABB a = player->getAABB(true);
     a.lower = a.lower.add(move);
     a.upper = a.upper.add(move);
@@ -95,5 +108,6 @@ void ChestTP::onDisable() {
         a.upper.y = a.lower.y + 1.8f;
         player->setAABB(a);
     }
+
     Game.DisplayClientMessage("%s[ChestTP] Disabled", MCTF::WHITE);
 }
