@@ -21,7 +21,7 @@ void AutoEZ::onNormalTick(LocalPlayer* localPlayer) {
     if(!sender)
         return;
 
-    auto& actorList = localPlayer->level->getRuntimeActorList();
+    const auto& actorList = localPlayer->level->getRuntimeActorList();
 
     for(auto* entity : actorList) {
         if(!entity)
