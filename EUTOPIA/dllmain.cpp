@@ -16,8 +16,6 @@
 #include "Client/Managers/CommandManager/CommandManager.h"
 #include "Client/Managers/HooksManager/HookManager.h"
 #include "Client/Managers/ModuleManager/ModuleManager.h"
-#include "Client/Managers/ModuleManager/Modules/Category/Client/SearchBox.h"
-#include "Utils/RenderUtil.h"
 #include "json.hpp"
 
 DWORD WINAPI ClientThread(LPVOID lpParameter) {
@@ -43,7 +41,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
     } else if(ul_reason_for_call == DLL_PROCESS_DETACH) {
         Client::shutdown();
         Sleep(50);
-        RenderUtil::Clean();
+        D2D::Clean();
         HookManager::shutdown();
         ModuleManager::shutdown();
         CommandManager::shutdown();

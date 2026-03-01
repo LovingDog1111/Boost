@@ -7,6 +7,6 @@ public:
 	float vertical = 0.f;
 
 	Velocity();
-    void onReceivePacket(Packet* packet, bool* cancel) override;
+    void onRecievePacket(Packet* packet, bool* cancel) override;
 	std::string getModeText() override;
 };

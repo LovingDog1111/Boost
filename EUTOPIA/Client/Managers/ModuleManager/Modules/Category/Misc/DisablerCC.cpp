@@ -21,7 +21,7 @@ void DisablerCC::onEnable() {
         ("[DisablerCC] Target ping set to: " + std::to_string(targetPing)).c_str());
 }
 
-void DisablerCC::onReceivePacket(Packet* packet, bool* cancel) {
+void DisablerCC::onRecievePacket(Packet* packet, bool* cancel) {
     if(!packet)
         return;
     if(packet->getId() != PacketID::NetworkStackLatency)

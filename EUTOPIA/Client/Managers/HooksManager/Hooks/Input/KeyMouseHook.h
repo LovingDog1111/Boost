@@ -10,20 +10,13 @@ class KeyMouseHook : public FuncHook {
                                    __int16 mouseY, __int16 relativeMovementX,
                                    __int16 relativeMovementY, char a8) {
         GC::keyMousePtr = (void*)(a1 + 0x10);
-        RenderUtil::mpos = Vec2<float>((float)mouseX, (float)mouseY);
+        D2D::mpos = Vec2<float>((float)mouseX, (float)mouseY);
 
         static ClickGUI* clickGuiMod = ModuleManager::getModule<ClickGUI>();
-        static Editor* EditorMod = ModuleManager::getModule<Editor>();
 
         if(clickGuiMod->isEnabled()) {
             clickGuiMod->onMouseUpdate(Vec2<float>((float)mouseX, (float)mouseY), mouseButton,
                                        isDown);
-            return;
-        }
-
-        if(EditorMod->isEnabled()) {
-            EditorMod->onMouseUpdate(Vec2<float>((float)mouseX, (float)mouseY), mouseButton,
-                                     isDown);
             return;
         }
 

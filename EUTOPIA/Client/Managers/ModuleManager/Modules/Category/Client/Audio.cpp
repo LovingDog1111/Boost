@@ -1,16 +1,14 @@
 #include "Audio.h"
 
+#include <windows.h>
+#include <winhttp.h>
+
+#include <filesystem>
 #include <fstream>
 
 #include "FileUtil.h"
 
-#include <windows.h>
-#include <winhttp.h>
-#include <filesystem>
-
-
 bool Audio::DownloadIfMissing(const std::string &filename) {
-
     std::string fullPath = FileUtil::getClientPath() + "Audios\\" + filename;
 
     if(std::filesystem::exists(fullPath)) {

@@ -25,13 +25,10 @@ private:
 		auto ci = renderCtx->clientInstance;
         
 		static ClickGUI* clickGuiMod = ModuleManager::getModule<ClickGUI>();
-        static Editor* EditorMod = ModuleManager::getModule<Editor>();
 		if (clickGuiMod->isEnabled()) {
 			ci->releaseVMouse();
 		}
-		 else if( EditorMod->isEnabled()) {
-			ci->releaseVMouse();
-		} 
+
 		oFunc(_this, renderCtx);
 
 		uintptr_t* visualTree = *(uintptr_t**)((uintptr_t)(_this)+0x48);

@@ -43,7 +43,7 @@ void AutoEat::onNormalTick(LocalPlayer* localPlayer) {
         if(eating && lastSlot != -1 && InvUtil::getSelectedSlot() != lastSlot) {
             InvUtil::switchTo(lastSlot);
         }
-        releaseEat(RenderUtil::mpos.x, RenderUtil::mpos.y);
+        releaseEat(D2D::mpos.x, D2D::mpos.y);
         eating = false;
         lastSlot = -1;
         return;
@@ -76,13 +76,13 @@ void AutoEat::onNormalTick(LocalPlayer* localPlayer) {
         eating = true;
     }
 
-    holdEat(RenderUtil::mpos.x, RenderUtil::mpos.y);
+    holdEat(D2D::mpos.x, D2D::mpos.y);
 }
 
 void AutoEat::onEnable() {}
 void AutoEat::onDisable() {
     if(eating) {
-        releaseEat(RenderUtil::mpos.x, RenderUtil::mpos.y);
+        releaseEat(D2D::mpos.x, D2D::mpos.y);
         if(lastSlot != -1)
             InvUtil::switchTo(lastSlot);
         eating = false;

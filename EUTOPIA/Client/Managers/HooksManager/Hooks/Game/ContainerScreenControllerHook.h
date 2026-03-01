@@ -15,7 +15,6 @@ private:
         if(player->getContainerManagerModel()->mContainerType != ContainerType::Container) {
             return oFunc(_this);
         }
-        ModuleManager::onChestScreen(_this);
         return oFunc(_this);
     }
 public:

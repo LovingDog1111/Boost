@@ -1,12 +1,10 @@
 #include "ToggleSounds.h"
-
 #include <iostream>
-
 #include "../../../ModuleManager.h"
 #include "AudioData.h"
 
 ToggleSounds::ToggleSounds()
-    : Module("Toggle Sounds", "Play sounds when toggling modules", Category::CLIENT) {
+    : Module("ToggleSounds", "Play sounds when toggling modules", Category::CLIENT) {
     registerSetting(
         new EnumSetting("Mode", "Which sound set to use", {"Celestial"}, &soundMode, 0));
     std::cout << "ToggleSounds constructor called" << std::endl;

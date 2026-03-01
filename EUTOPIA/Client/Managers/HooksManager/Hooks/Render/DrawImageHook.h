@@ -31,14 +31,14 @@ class DrawImageHook : public FuncHook {
                     static Colors* colorsMod = ModuleManager::getModule<Colors>();
                     float scale = 6.0f;
 
-                    float textWidth = RenderUtil::getTextWidth(text, scale);
+                    float textWidth = D2D::getTextWidth(text, scale);
 
                     float textX = pos.x + (size.x / 2.f) - (textWidth / 2.f);
                     float textY = pos.y;
 
                     Vec2<float> textPos = {textX, textY};
 
-                    RenderUtil::drawText(textPos, text, colorsMod->getColor().toMCColor(), scale);
+                    D2D::drawText(textPos, text, colorsMod->getColor().toMCColor(), scale);
                     MCR::renderCtx->flushText(1.0f);
 
                     return 0;

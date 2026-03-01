@@ -1,48 +1,37 @@
 #pragma once
-
 #include "../../ModuleBase/Module.h"
-#include "../../Utils/ColorUtil.h"
-#include "../../Utils/TimerUtil.h"
 
 class Colors : public Module {
    public:
-    UIColor mainColor = UIColor(50, 205, 50, 255);
-    UIColor midColor = UIColor(0, 255, 255, 255);
+    int colorType = 0;
+    UIColor mainColor = UIColor(115, 145, 255, 175);
+    UIColor primaryColor = UIColor(115, 145, 255, 175);
+    UIColor secondColor = UIColor(85, 115, 235, 175);
 
-    int modeValue = 0;
-    int colorTheme = 1;
-    float brightness = 1.f;
     float saturation = 1.f;
-    float seconds = 3.f;
-    float effectSpeed = 1.0f;
-    float effectIntensity = 1.0f;
-    float hueValue = 200.0f;
-    int separation = 125;
-    float speed = 1.0f;
-    Colors();
+    int seperation = 50;
+    float seconds = 6.f;
+    float brightness = 1.f;
 
-    int getSeparationValue() const {
-        return this->separation;
+   public:
+    UIColor getColor(int index = 0) {
+        if(colorType == 1)
+            return ColorUtil::getWaveColor(primaryColor, secondColor, index);
+        else if(colorType == 2)
+            return ColorUtil::getRainbowColor(seconds, saturation, brightness, index);
+        return mainColor;
+    }
+    int getSeperation() {
+        return seperation;
     }
 
-    UIColor getColor(int index = 0) const;
-    UIColor getThemeMainColor(int index) const;
-
-    bool isEnabled() override;
-    void setEnabled(bool enabled) override;
-    bool isVisible() override;
-    virtual void onNormalTick(LocalPlayer* localPlayer) override;
-    enum ColorMode {
-        SOLID = 0,
-        SPECTRUM = 1,
-        DEEP_SEA = 2,
-        GALAXY = 3,
-        LOLLIPOP = 4,
-        PRISM = 5,
-        SUNSET = 6,
-        PULSE = 7,
-        RASTA = 8
-    };
+   public:
+    Colors();
+    virtual bool isEnabled() override {
+        return true;
+    }
+    virtual bool isVisible() override {
+        return false;
+    }
+    virtual void setEnabled(bool enabled) override {}
 };
-
-extern Colors* g_Colors;

@@ -1,21 +1,24 @@
 #pragma once
-#include <string>
-
 #include "Setting.h"
 
 class StringSetting : public Setting {
-   public:
-    std::string* valuePtr;  
-    std::string defaultValue;
+public:
+	std::string* value;
+	std::string defaultValue;
+	bool isCapturing = false;
 
-    StringSetting(const std::string& settingName, const std::string& des, std::string* vPtr,
-                  const std::string& defVal) {
-        this->name = settingName;
-        this->description = des;
-        this->valuePtr = vPtr;
-        this->defaultValue = defVal;
-        *this->valuePtr = defVal;
+	StringSetting(std::string settingName,
+		std::string des,
+		std::string* ptr,
+		std::string defaultVal,
+		std::optional<std::function<bool(void)>> _dependOn = std::nullopt) {
 
-        this->type = SettingType::STRING_S;
-    }
+		this->name = settingName;
+		this->description = des;
+		this->value = ptr;
+		this->defaultValue = defaultVal;
+		*this->value = defaultVal;
+		this->dependOn = _dependOn;
+		this->type = SettingType::STRING_S;
+	}
 };

@@ -7,7 +7,7 @@ Velocity::Velocity() : Module("Velocity", "Prevent you from knockback", Category
 }
 
 
-void Velocity::onReceivePacket(Packet* packet, bool* cancel) {
+void Velocity::onRecievePacket(Packet* packet, bool* cancel) {
     if (!packet) return;
     
     auto ci = GI::getClientInstance();

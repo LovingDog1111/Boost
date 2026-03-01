@@ -17,33 +17,6 @@ bool ThemeCommand::execute(const std::vector<std::string>& args) {
     if(!colorsModule)
         return true;
 
-    if(theme == "solid") {
-        colorsModule->modeValue = Colors::SOLID;
-        if(args.size() >= 3)
-            colorsModule->mainColor = parseColorName(args[2]);
-    } else if(theme == "spectrum") {
-        colorsModule->modeValue = Colors::SPECTRUM;
-    } else if(theme == "deepsea") {
-        colorsModule->modeValue = Colors::DEEP_SEA;
-    } else if(theme == "galaxy") {
-        colorsModule->modeValue = Colors::GALAXY;
-    } else if(theme == "lollipop") {
-        colorsModule->modeValue = Colors::LOLLIPOP;
-    } else if(theme == "prism") {
-        colorsModule->modeValue = Colors::PRISM;
-    } else if(theme == "sunset") {
-        colorsModule->modeValue = Colors::SUNSET;
-    } else if(theme == "pulse") {
-        colorsModule->modeValue = Colors::PULSE;
-    } else if(theme == "rasta") {
-        colorsModule->modeValue = Colors::RASTA;
-    } else {
-        Client::DisplayClientMessage(
-            "Invalid theme. Options: solid, spectrum, deepsea, galaxy, lollipop, prism, sunset, "
-            "pulse, rasta");
-        return false;
-    }
-
     Client::DisplayClientMessage(("Theme set to " + theme).c_str());
     return true;
 }

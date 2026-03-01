@@ -53,8 +53,5 @@ public:
      void onMCRender(MinecraftUIRenderContext* mcr) override;
 	 void onEnable() override;
 	 void onDisable() override;
-	 void onReceivePacket(Packet* packet, bool* cancel) override;
-     void onRenderActorBefore(Actor* entity, Vec3<float>* cameraTargetPos,
-                              Vec3<float>* pos) override;
-     void onRenderActorAfter(Actor* entity) override;
+	 void onRecievePacket(Packet* packet, bool* cancel) override;
 };

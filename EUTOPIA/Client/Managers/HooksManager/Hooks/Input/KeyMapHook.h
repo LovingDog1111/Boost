@@ -10,19 +10,12 @@ private:
 
 		static ClickGUI* clickGuiMod = ModuleManager::getModule<ClickGUI>();
    
-        static Editor* EditorMod = ModuleManager::getModule<Editor>();
 		bool clickGuiHandledOwnKey = false;
-
 
 		if (clickGuiMod->isEnabled()) {
 			clickGuiMod->onKeyUpdate((int)key, isDown);
 			return 0;
 		}
-        
-			if(EditorMod->isEnabled()) {
-            EditorMod->onKeyUpdate((int)key, isDown);
-            return 0;
-        }
 
 		if (GI::canUseMoveKeys())
 			ModuleManager::onKeyUpdate((int)key, isDown);

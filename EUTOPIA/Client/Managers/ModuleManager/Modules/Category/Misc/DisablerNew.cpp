@@ -19,7 +19,7 @@ DisablerNew::DisablerNew() : Module("DisablerNew", "Disable the anticheat", Cate
     registerSetting(new EnumSetting("Mode", "", {"Sentinel"}, &Mode, 0));
 }
 
-void DisablerNew::onReceivePacket(Packet* packet, bool* cancel) {
+void DisablerNew::onRecievePacket(Packet* packet, bool* cancel) {
 
     if(Mode == 0 && packet->getId() == PacketID::NetworkStackLatency) {
         auto latency = reinterpret_cast<NetworkStackLatencyPacket*>(packet);

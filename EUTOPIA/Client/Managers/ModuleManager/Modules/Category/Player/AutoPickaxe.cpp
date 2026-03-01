@@ -1,7 +1,7 @@
 #include "AutoPickaxe.h"
 
 AutoPickaxe::AutoPickaxe()
-    : Module("Auto Pickaxe", "Forces the player to hold a pickaxe", Category::PLAYER) {}
+    : Module("AutoPickaxe", "Forces the player to hold a pickaxe", Category::PLAYER) {}
 
 void AutoPickaxe::onNormalTick(LocalPlayer* localPlayer) {
     if(!localPlayer)

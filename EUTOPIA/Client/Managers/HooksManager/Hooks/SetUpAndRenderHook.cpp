@@ -100,12 +100,9 @@ class SetUpAndRenderHook : public FuncHook {
 
         auto ci = renderCtx->clientInstance;
         static ClickGUI* clickGuiMod = ModuleManager::getModule<ClickGUI>();
-        static Editor* EditorMod = ModuleManager::getModule<Editor>();
         if(clickGuiMod && clickGuiMod->isEnabled()) {
             ci->releaseVMouse();
-        } else if(EditorMod && EditorMod->isEnabled()) {
-            ci->releaseVMouse();
-        }
+        } 
         oFunc(_this, renderCtx);
 
         uintptr_t* visualTree = *(uintptr_t**)((uintptr_t)(_this) + 0x48);

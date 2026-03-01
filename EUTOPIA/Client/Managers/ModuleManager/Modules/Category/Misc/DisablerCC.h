@@ -9,7 +9,7 @@ class DisablerCC : public Module {
     void onDisable() override;
     void onSendPacket(Packet* packet) override;
     void onNormalTick(LocalPlayer* player) override;
-    void onReceivePacket(Packet* packet, bool* cancel) override;
+    void onRecievePacket(Packet* packet, bool* cancel) override;
     void onMCRender(MinecraftUIRenderContext* ctx) override;
     void onD2DRender() override;
 

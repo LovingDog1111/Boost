@@ -36,7 +36,7 @@ void PacketReceiveHook::onPacketSend(PacketHandlerDispatcherInstance* dispatcher
     NetworkIdentifier = networkIdentifier;
 
     bool cancel = false;
-    ModuleManager::onReceivePacket(packet.get(), &cancel);
+    ModuleManager::onRecievePacket(packet.get(), &cancel);
 
     if(cancel) {
     }

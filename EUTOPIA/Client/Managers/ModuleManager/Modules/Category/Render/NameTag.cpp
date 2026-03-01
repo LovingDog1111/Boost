@@ -55,17 +55,6 @@ std::string sanitizex(const std::string& text) {
     return out;
 }
 
-void NameTags::onRenderNameTag(Actor* actor, Vec3<float>* pos, bool unknownFlag, float delta,
-                               mce::Color* color) {
-    if(!actor || !color)
-        return;
-
-    color->r = 0;
-    color->g = 0;
-    color->b = 0;
-    color->a = 0;
-}
-
 void NameTags::onD2DRender() {
     LocalPlayer* lp = GI::getLocalPlayer();
     if(!lp)
@@ -103,8 +92,8 @@ void NameTags::onD2DRender() {
                 scale = tagSize * (3.f - ((distance - 1.f) * (2.0f / 3.f)));
         }
 
-        float textWidth = RenderUtil::getTextWidth(name, scale);
-        float textHeight = RenderUtil::getTextHeight(name, scale);
+        float textWidth = D2D::getTextWidth(name, scale);
+        float textHeight = D2D::getTextHeight(name, scale);
         float padding = 1.f * scale;
         Vec2<float> textPos(screenPos.x - textWidth / 2.f, screenPos.y - textHeight / 2.f);
         Vec4<float> bgRect(textPos.x - padding * 3.0f, textPos.y - padding,
@@ -122,17 +111,17 @@ void NameTags::onD2DRender() {
                              bgRect.x + barWidth * healthRatio, bgRect.y - 2.f);
 
         if(styletag == 0)
-            RenderUtil::fillRectangle(bgRect, UIColor(12, 27, 46, static_cast<int>(255 * opacity)));
+            D2D::fillRectangle(bgRect, UIColor(12, 27, 46, static_cast<int>(255 * opacity)));
         else
-            RenderUtil::fillRoundedRectangle(
-                bgRect, UIColor(0, 0, 0, static_cast<int>(255 * opacity)), 10.f);
+            D2D::fillRectangle(
+                bgRect, UIColor(0, 0, 0, static_cast<int>(255 * opacity)));
 
         if(showHealthBar) {
-            RenderUtil::fillRectangle(healthBg,
+            D2D::fillRectangle(healthBg,
                                       UIColor(40, 40, 40, static_cast<int>(255 * opacity)));
             int red = std::clamp(static_cast<int>((1.0f - healthRatio) * 320), 0, 255);
             int green = std::clamp(static_cast<int>(healthRatio * 320), 0, 255);
-            RenderUtil::fillRectangle(healthFg,
+            D2D::fillRectangle(healthFg,
                                       UIColor(red, green, 60, static_cast<int>(255 * opacity)));
 
             if(showAbsorption && absorption > 0.f) {
@@ -143,10 +132,9 @@ void NameTags::onD2DRender() {
                                            bgRect.y - barHeight - 2.f);
 
                 UIColor absorptionColor(255, 230, 80, 220);
-                RenderUtil::fillRoundedRectangle(absorptionRect, absorptionColor, barHeight / 4.0f);
+                D2D::fillRectangle(absorptionRect, absorptionColor);
                 UIColor borderColor(255, 255, 120, 200);
-                RenderUtil::drawRoundedRectangle(absorptionRect, borderColor, barHeight / 4.0f,
-                                                 0.5f);
+                D2D::drawRectangle(absorptionRect, borderColor);
             }
 
             if(scale > 0.6f) {
@@ -154,22 +142,22 @@ void NameTags::onD2DRender() {
                 if(absorption > 0)
                     healthText += "+" + std::to_string((int)absorption);
                 float textScale = 0.3f * scale;
-                float valueW = RenderUtil::getTextWidth(healthText, textScale);
-                float valueH = RenderUtil::getTextHeight(healthText, textScale);
+                float valueW = D2D::getTextWidth(healthText, textScale);
+                float valueH = D2D::getTextHeight(healthText, textScale);
                 Vec2<float> healthTextPos(bgRect.z + 4.f * scale,
                                           healthBg.y + (barHeight - valueH) / 2.0f);
-                RenderUtil::drawText(healthTextPos, healthText, UIColor(255, 255, 255, 255),
+                D2D::drawText(healthTextPos, healthText, UIColor(255, 255, 255, 255),
                                      textScale);
             }
         }
 
         if(underlineMode == 1)
-            RenderUtil::fillRectangle(
+            D2D::fillRectangle(
                 Vec4<float>(bgRect.x, bgRect.w - 1.f * scale, bgRect.z, bgRect.w), tagColor);
         if(underlineMode == 2)
-            RenderUtil::drawRectangle(bgRect, tagColor, 1.0f);
+            D2D::drawRectangle(bgRect, tagColor, 1.0f);
 
-        RenderUtil::drawText(textPos, name, UIColor(255, 255, 255, 255), scale, true);
+        D2D::drawText(textPos, name, UIColor(255, 255, 255, 255), scale, true);
 
         Vec2<float> armorPos(screenPos.x - 10.f, screenPos.y - 20.f);
         for(int i = 0; i < 4; ++i) {

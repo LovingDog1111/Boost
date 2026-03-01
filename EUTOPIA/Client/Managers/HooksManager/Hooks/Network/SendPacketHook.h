@@ -19,26 +19,14 @@ class SendPacketHook : public FuncHook {
             return;
         }
 
- 
-
         static NoPacket* noPacketMod = ModuleManager::getModule<NoPacket>();
         static Freecam* freecam = ModuleManager::getModule<Freecam>();
-        static KillauraReachY* kareach = ModuleManager::getModule<KillauraReachY>();
-        static KillauraReachY2* kareach2 = ModuleManager::getModule<KillauraReachY2>();
         static AntiHit* antiHit = ModuleManager::getModule<AntiHit>();
-
 
         if(noPacketMod && noPacketMod->isEnabled() && GI::getLocalPlayer() != nullptr) {
             return;
         }
 
-        if(kareach && kareach->isEnabled() && GI::getLocalPlayer() != nullptr) {
-            return;
-        }
-
-        if(kareach2 && kareach2->isEnabled() && GI::getLocalPlayer() != nullptr) {
-            return;
-        }
         if(packet->getId() == PacketID::PlayerAuthInput) {
             if(antiHit && antiHit->isEnabled() && GI::getLocalPlayer() != nullptr) {
                 return;
@@ -60,8 +48,6 @@ class SendPacketHook : public FuncHook {
                 return;
             }
         }
-
-
         ModuleManager::onSendPacket(packet);
 
         oFunc(_this, packet);

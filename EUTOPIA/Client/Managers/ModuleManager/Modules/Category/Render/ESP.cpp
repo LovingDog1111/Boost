@@ -64,7 +64,7 @@ void ESP::onLevelRender() {
 
             Vec3<float> textPos3D(pos.x, pos.y + height + 0.5f, pos.z);
             Vec2<float> screenPos(0.0f, 0.0f);
-            RenderUtil::WorldToScreen(textPos3D, screenPos);
+            D2D::WorldToScreen(textPos3D, screenPos);
 
             DrawUtil::drawText(screenPos, name, UIColor(color.r, color.g, color.b, 255), 1.0f);
 

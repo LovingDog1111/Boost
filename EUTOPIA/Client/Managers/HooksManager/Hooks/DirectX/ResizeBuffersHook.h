@@ -1,6 +1,6 @@
 #pragma once
 #include "../FuncHook.h"
-#include "../../../../../Utils/RenderUtil.h"
+#include "../../../../../Renderer/D2D.h"
 #include <Windows.h>
 
 class ResizeBuffersHook : public FuncHook {
@@ -9,7 +9,7 @@ private:
 	static inline reiszeBuffers_t oResizeBuffers;
 
 	static HRESULT resizeBuffersCallback(IDXGISwapChain* swapChain, int bufferCount, int width, int height, DXGI_FORMAT newFormat, int swapChainFlags) {
-		RenderUtil::Clean();
+		D2D::Clean();
 
 		return oResizeBuffers(swapChain, bufferCount, width, height, newFormat, swapChainFlags);
 	}

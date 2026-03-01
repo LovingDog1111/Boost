@@ -38,14 +38,14 @@ void Keystrokes::onD2DRender() {
             width = keySize;
         UIColor bgColor = pressed ? UIColor(getColor(0).r, getColor(0).g, getColor(0).b, opacity)
                                   : UIColor(50, 50, 50, opacity);
-        RenderUtil::fillRectangle(Vec4<float>(pos.x, pos.y, pos.x + width, pos.y + keySize),
+        D2D::fillRectangle(Vec4<float>(pos.x, pos.y, pos.x + width, pos.y + keySize),
                                   bgColor);
-        RenderUtil::drawRectangle(Vec4<float>(pos.x, pos.y, pos.x + width, pos.y + keySize),
+        D2D::drawRectangle(Vec4<float>(pos.x, pos.y, pos.x + width, pos.y + keySize),
                                   UIColor(255, 255, 255, 200), 1.f);
 
-        float textW = RenderUtil::getTextWidth(label, scale * 0.5f);
-        float textH = RenderUtil::getTextHeight(label, scale * 0.5f);
-        RenderUtil::drawText(
+        float textW = D2D::getTextWidth(label, scale * 0.5f);
+        float textH = D2D::getTextHeight(label, scale * 0.5f);
+        D2D::drawText(
             Vec2<float>(pos.x + (width - textW) / 2.f, pos.y + (keySize - textH) / 2.f), label,
             UIColor(255, 255, 255), scale * 0.5f, true);
     };

@@ -102,7 +102,6 @@ void Client::init() {
     Logger::init();
     ConfigManager::init();
     MCTF::initMCTF();
-    ModuleManager::minit();
     ModuleManager::init();
     CommandManager::init();
     HookManager::init();

@@ -23,7 +23,7 @@ void AntiCrystal::onSendPacket(Packet* packet) {
     }
 }
 
-void AntiCrystal::onReceivePacket(Packet* packet, bool* cancel) {
+void AntiCrystal::onRecievePacket(Packet* packet, bool* cancel) {
     LocalPlayer* localPlayer = GI::getLocalPlayer();
     if(!localPlayer)
         return;

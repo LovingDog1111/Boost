@@ -40,7 +40,7 @@ class Audio {
     Audio();
     int PlayFromMemory(const uint8_t* wavData, uint32_t dataSize, float volume, bool ShouldLoop);
 
-    static bool DownloadIfMissing(const std::string& filename); 
+    static bool DownloadIfMissing(const std::string& filename);
 
     int Play(string path, float volume = 1, bool ShouldLoop = false);
     string BasePath;

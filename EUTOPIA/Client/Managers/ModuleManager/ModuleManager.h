@@ -1,35 +1,19 @@
 #pragma once
-
-// stuff
 #include "..\Utils\Minecraft\Utils.h"
-#include "Modules/Category/Combat/MobAura.h"
 #include "Modules/Category/Movement/AutoMove.h"
 #include "Modules/Category/World/Baritone.h"
 #include "Modules/Category/World/Crasher.h"
 #include "Modules/Category/World/Dih.h"
 #include "Modules/Category/World/PortalFinder.h"
 #include "Modules/Category/World/StashFinder.h"
-// Client
-#include "Modules/Category/Client/AIChat.h"
-#include "Modules/Category/Client/ArrayList.h"
-#include "Modules/Category/Client/BGAnimation.h"
 #include "Modules/Category/Client/ClickGUI.h"
 #include "Modules/Category/Misc/KillCounter.h"
 #include "Modules/Category/Client/ColorsMod.h"
-#include "Modules/Category/Client/ConfigLoader.h"
-#include "Modules/Category/Client/Configs.h"
 #include "Modules/Category/Combat/AntiHit.h"
 #include "Modules/Category/Client/CustomFont.h"
-#include "Modules/Category/Client/Editor.h"
-#include "Modules/Category/Client/HUD.h"
-#include "Modules/Category/Client/IRC.h"
-#include "Modules/Category/Client/NeteaseMusicGUI.h"
-#include "Modules/Category/Client/SearchBox.h"
 #include "Modules/Category/Client/ToggleSounds.h"
-#include "Modules/Category/Client/UserInfo.h"
 #include "Modules/Category/Combat/AutoKill.h"
 #include "Modules/Category/Combat/KillAuraH.h"
-#include "Modules/Category/Combat/TrapTPA.h"
 #include "Modules/Category/Misc/FriendJoin.h"
 #include "Modules/Category/Misc/PacketCounter.h"
 #include "Modules/Category/Misc/PlayerCounter.h"
@@ -43,14 +27,11 @@
 #include "Modules/Category/World/SMTransfer.h"
 #include "Modules/Category/World/WartFinder.h"
 #include "Modules/ModuleBase/Module.h"
-
-// Player
 #include "Modules/Category/Movement/FastStop.h"
 #include "Modules/Category/Player/AntiCrystal.h"
 #include "Modules/Category/Player/AutoEat.h"
 #include "Modules/Category/Player/AutoPickaxe.h"
 #include "Modules/Category/Player/BlockReach.h"
-#include "Modules/Category/Player/ChestStealer.h"
 #include "Modules/Category/Player/Clip.h"
 #include "Modules/Category/Player/EnemyTP.h"
 #include "Modules/Category/Player/MidClick.h"
@@ -59,25 +40,16 @@
 #include "Modules/Category/Player/PlayerInfo.h"
 #include "Modules/Category/Player/PopCounter.h"
 #include "Modules/Category/Player/SurfaceTP.h"
-//#include "Modules/Category/Client/AutoKey.h"
 #include "Modules/Category/World/WorldScanner.h"
-// Test
 #include "Modules/Category/Test/TestModule.h"
-// Combat
 #include "Modules/Category/Combat/AboveAura.h"
-#include "Modules/Category/Combat/Aura.h"
 #include "Modules/Category/Combat/AutoClicker.h"
 #include "Modules/Category/Combat/BowSpam.h"
 #include "Modules/Category/Combat/Criticals.h"
 #include "Modules/Category/Combat/CriticalsLB.h"
-#include "Modules/Category/Combat/Crits.h"
 #include "Modules/Category/Combat/DamageText.h"
-#include "Modules/Category/Combat/DashAura.h"
 #include "Modules/Category/Combat/Hitbox.h"
 #include "Modules/Category/Combat/InfinityAura.h"
-#include "Modules/Category/Combat/InsideAura.h"
-#include "Modules/Category/Combat/KillAura.h"
-#include "Modules/Category/Combat/KillAuraV2.h"
 #include "Modules/Category/Combat/Reach.h"
 #include "Modules/Category/Combat/Surround.h"
 #include "Modules/Category/Combat/Switcher.h"
@@ -85,7 +57,6 @@
 #include "Modules/Category/Combat/TriggerBot.h"
 #include "Modules/Category/Movement/MotionFly.h"
 #include "Modules/Category/Render/HitVisuals.h"
-// Movement
 #include "Modules/Category/Movement/AutoJump.h"
 #include "Modules/Category/Movement/AutoSneak.h"
 #include "Modules/Category/Movement/AutoSprint.h"
@@ -101,8 +72,6 @@
 #include "Modules/Category/Movement/Spider.h"
 #include "Modules/Category/Movement/Step.h"
 #include "Modules/Category/Movement/Velocity.h"
-
-// Render
 #include "Modules/Category/Render/BlockHighLight.h"
 #include "Modules/Category/Render/CameraTweaks.h"
 #include "Modules/Category/Render/ChunkBorders.h"
@@ -128,15 +97,10 @@
 #include "Modules/Category/Render/ViewModel.h"
 #include "Modules/Category/World/MobTP.h"
 #include "Modules/Category/World/Spawn.h"
-
-// WORLD
 #include "Modules/Category/World/Nuker.h"
 #include "Modules/Category/World/Top.h"
 #include "Modules/Category/World/TpMine.h"
-// #include "Modules/Category/World/LbTP.h"
 #include "Modules/Category/Combat/AutoSwitch.h"
-#include "Modules/Category/Render/DihESP.h"
-#include "Modules/Category/Render/ItemTags.h"
 #include "Modules/Category/World/AirPlace.h"
 #include "Modules/Category/World/AutoEZ.h"
 #include "Modules/Category/World/AutoHub.h"
@@ -150,12 +114,7 @@
 #include "Modules/Category/World/Scaffold.h"
 #include "Modules/Category/World/StashTP.h"
 #include "Modules/Category/World/WaterTP.h"
-
-// MISC
 #include "Modules/Category/Client/notifs.h"
-#include "Modules/Category/Combat/CCAura.h"
-#include "Modules/Category/Combat/CritsCC.h"
-#include "Modules/Category/Combat/KillauraReach.h"
 #include "Modules/Category/Misc/AntiBot.h"
 #include "Modules/Category/Misc/Chat.h"
 #include "Modules/Category/Misc/DeviceSpoofer.h"
@@ -175,13 +134,9 @@
 #include "Modules/Category/Misc/Twerk.h"
 #include "Modules/Category/Render/Breakindicators.h"
 #include "Modules/Category/Render/Freecam.h"
-#include "Modules/Category/Render/ItemESP.h"
 #include "Modules/Category/Render/MobTags.h"
 #include "Modules/Category/Render/NoCameraClip.h"
 #include "Modules/Category/Player/PlayerScanner.h"
-#include "Modules/Category/Combat/KillauraReachY.h"
-#include "Modules/Category/Combat/KillauraReachY2.h"
-#include "Modules/Category/Combat/LbReachV2.h"
 
 class ModuleManager {
    public:
@@ -216,13 +171,12 @@ class ModuleManager {
     static void onLevelTick(Level* level);
     static void onUpdateRotation(LocalPlayer* localPlayer);
     static void onSendPacket(Packet* packet);
-    static void onReceivePacket(Packet* packet, bool* cancel);
+    static void onRecievePacket(Packet* packet, bool* cancel);
     static void onD2DRender();
     static void onMCRender(MinecraftUIRenderContext* renderCtx);
     static void onLevelRender();
     static void onRenderActorBefore(Actor* actor, Vec3<float>* camera, Vec3<float>* pos);
     static void onRenderActorAfter(Actor* actor);
-    static void onChestScreen(ContainerScreenController* csc);
     static void onLoadConfig(void* conf);
     static void onSaveConfig(void* conf);
     static void onRenderNameTag(Actor* actor, Vec3<float>* pos, bool unknownFlag, float delta,

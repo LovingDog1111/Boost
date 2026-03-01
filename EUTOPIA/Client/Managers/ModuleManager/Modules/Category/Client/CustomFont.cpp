@@ -1,40 +1,17 @@
 #include "CustomFont.h"
 
 CustomFont::CustomFont() : Module("Fonts", "Font of Client", Category::CLIENT) {
-    fontEnumSetting = (EnumSetting*)registerSetting(new EnumSetting("Font", "NULL",
-                                                                    {"Arial",
-                                                                     "Bahnschrift",
-                                                                     "Calibri",
-                                                                     "Cambria",
-                                                                     "Candara",
-                                                                     "Product Sans",
-                                                                     "Verdana",
-                                                                     "Noto Sans",
-                                                                     "Comic Sans MS",
-                                                                     "Courier New",
-                                                                     "Georgia",
-                                                                     "Impact",
-                                                                     "Tahoma",
-                                                                     "Times New Roman",
-                                                                     "Trebuchet MS",
-                                                                     "Segoe UI",
-                                                                     "Lucida Console",
-                                                                     "Garamond",
-                                                                     "Papyrus",
-                                                                     "Curlz MT",
-                                                                     "Wingdings",
-                                                                     "Constantia Bold",
-                                                                     "Gabriola",
-                                                                     "MingLiU_HKSCS-ExtB",
-                                                                     "Mongolian Baiti",
-                                                                     "Bahnschrift SemiBold",
-                                                                     "Rockwell Condensed Negreta",
-                                                                     "Century"},
-                                                                    &fontMode, 7));
-
-    registerSetting(new SliderSetting<int>("FontSize", "NULL", &fontSize, 25, 15, 40));
+    fontEnumSetting = (EnumSetting*)registerSetting(new EnumSetting(
+        "Font", "NULL",
+        {"Arial", "Bahnschrift", "Mojangles", "Noto Sans", "Product Sans", "Verdana"}, &fontMode,
+        1));
+    registerSetting(new SliderSetting<int>("FontSize", "NULL", &fontSize, 22, 10, 30));
     registerSetting(new BoolSetting("Italic", "NULL", &italic, false));
     registerSetting(new BoolSetting("Shadow", "NULL", &shadow, false));
+    registerSetting(new EnumSetting("TextAA", "Text antialiasing mode",
+                                    {"Default", "Clear", "None"}, &textAntialiasMode, 0));
+    registerSetting(new BoolSetting("SpaceFix", "Reduce space width for Mojangles font",
+                                    &compactMojanglesSpace, false));
 }
 
 bool CustomFont::isEnabled() {

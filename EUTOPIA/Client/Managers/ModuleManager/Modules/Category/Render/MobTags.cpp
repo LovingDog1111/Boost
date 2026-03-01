@@ -95,14 +95,14 @@ void MobTags::onD2DRender() {
                 scale = tagSize * (3.f - ((distance - 1.f) * (2.0f / 3.f)));
         }
 
-        float textWidth = RenderUtil::getTextWidth(name, scale);
-        float textHeight = RenderUtil::getTextHeight(name, scale);
+        float textWidth = D2D::getTextWidth(name, scale);
+        float textHeight = D2D::getTextHeight(name, scale);
         Vec2<float> textPos(screenPos.x - textWidth / 2.f, screenPos.y - textHeight / 2.f);
         Vec4<float> bgRect(textPos.x - 2.f * scale, textPos.y - 1.f * scale,
                            textPos.x + textWidth + 2.f * scale,
                            textPos.y + textHeight + 1.f * scale);
 
-        RenderUtil::fillRectangle(bgRect, UIColor(12, 27, 46, static_cast<int>(255 * opacity)));
+        D2D::fillRectangle(bgRect, UIColor(12, 27, 46, static_cast<int>(255 * opacity)));
 
         if(showHealthBar) {
             float health = actor->getHealth();
@@ -114,12 +114,12 @@ void MobTags::onD2DRender() {
             Vec4<float> healthFg(bgRect.x, bgRect.y - barHeight - 2.f,
                                  bgRect.x + barWidth * healthRatio, bgRect.y - 2.f);
 
-            RenderUtil::fillRectangle(healthBg,
+            D2D::fillRectangle(healthBg,
                                       UIColor(40, 40, 40, static_cast<int>(255 * opacity)));
 
             int red = std::clamp(static_cast<int>((1.0f - healthRatio) * 320), 0, 255);
             int green = std::clamp(static_cast<int>(healthRatio * 320), 0, 255);
-            RenderUtil::fillRectangle(healthFg,
+            D2D::fillRectangle(healthFg,
                                       UIColor(red, green, 60, static_cast<int>(255 * opacity)));
 
             if(showAbsorption) {
@@ -130,12 +130,11 @@ void MobTags::onD2DRender() {
                     Vec4<float> absorptionRect(bgRect.x + 1.f, bgRect.y - barHeight * 1.3f,
                                                bgRect.x + absorptionWidth - 1.f,
                                                bgRect.y - barHeight - 2.f);
-                    RenderUtil::fillRoundedRectangle(absorptionRect, UIColor(255, 230, 80, 220),
-                                                     barHeight / 4.f);
+                    D2D::fillRectangle(absorptionRect, UIColor(255, 230, 80, 220));
                 }
             }
         }
 
-        RenderUtil::drawText(textPos, name, UIColor(255, 255, 255, 255), scale, true);
+        D2D::drawText(textPos, name, UIColor(255, 255, 255, 255), scale, true);
     }
 }

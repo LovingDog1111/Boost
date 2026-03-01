@@ -19,6 +19,4 @@ class NameTags : public Module {
     NameTags();
     virtual void onD2DRender() override;
     virtual void onMCRender(MinecraftUIRenderContext* renderCtx) override;
-    virtual void onRenderNameTag(Actor* actor, Vec3<float>* pos, bool unknownFlag, float delta,
-                                 mce::Color* color) override;
 };

@@ -20,14 +20,14 @@ public:
 	T minValue;
 	T maxValue;
 
-	SliderSetting(std::string settingName, std::string des, T* vPtr, T defaultValue, T vMin, T vMax) {
+	SliderSetting(std::string settingName, std::string des, T* vPtr, T defaultValue, T vMin, T vMax, std::optional<std::function<bool(void)>> _dependOn = std::nullopt) {
 		this->name = settingName;
 		this->description = des;
 		this->valuePtr = vPtr;
 		*this->valuePtr = defaultValue;
 		this->minValue = vMin;
 		this->maxValue = vMax;
-
+		this->dependOn = _dependOn;
 		this->type = SettingType::SLIDER_S;
 
 		if (std::is_same<T, int>::value) {

@@ -17,5 +17,5 @@ class PacketCounter : public Module {
     void onMCRender(MinecraftUIRenderContext* ctx) override;
     void onDisable() override;
     void onD2DRender() override;
-    void onReceivePacket(Packet* packet, bool* cancel) override;
+    void onRecievePacket(Packet* packet, bool* cancel) override;
 };

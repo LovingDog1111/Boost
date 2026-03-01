@@ -146,9 +146,9 @@ void KillCounter::onD2DRender() {
 
     float scale = 1.f;
     float padding = 6.f;
-    float lineHeight = RenderUtil::getTextHeight(text, scale);
+    float lineHeight = D2D::getTextHeight(text, scale);
 
-    float panelWidth = RenderUtil::getTextWidth(text, scale) + padding * 2.f;
+    float panelWidth = D2D::getTextWidth(text, scale) + padding * 2.f;
     float panelHeight = lineHeight + padding * 2.f;
 
     float x = (screen.x - panelWidth) * 0.5f;
@@ -163,10 +163,10 @@ void KillCounter::onD2DRender() {
         y += panelHeight + 2.f;
 
     Vec4<float> bg(x, y, x + panelWidth, y + panelHeight);
-    RenderUtil::fillRoundedRectangle(bg, UIColor(0, 0, 0, 170), 8.f);
-    RenderUtil::drawRoundedRectangle(bg, accent, 8.f, 1.f);
+    D2D::fillRectangle(bg, UIColor(0, 0, 0, 170));
+    D2D::drawRectangle(bg, accent, 8.f);
 
-    RenderUtil::drawText({x + padding, y + padding}, text, textColor, scale);
+    D2D::drawText({x + padding, y + padding}, text, textColor, scale);
 }
 
 void KillCounter::onDisable() {

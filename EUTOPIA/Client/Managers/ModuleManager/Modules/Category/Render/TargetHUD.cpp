@@ -91,8 +91,8 @@ void TargetHUD::onD2DRender() {
 
         std::string hpStr = std::to_string((int)actor->getHealth());
 
-        float textWidth = RenderUtil::getTextWidth(name, scale);
-        float textHeight = RenderUtil::getTextHeight(name, scale);
+        float textWidth = D2D::getTextWidth(name, scale);
+        float textHeight = D2D::getTextHeight(name, scale);
         float padding = 1.f * scale;
         Vec2<float> textPos(screenPos.x - textWidth / 2.f, screenPos.y - textHeight / 2.f);
         Vec4<float> bgRect(textPos.x - padding * 3.f, textPos.y - padding,
@@ -112,8 +112,8 @@ void TargetHUD::onD2DRender() {
         
 
 
-        RenderUtil::fillRoundedRectangle(bgRect, rectColor, 4.f);
-        RenderUtil::drawText(textPos, name + " | " + distanceStr + " | " + hpStr,
+        D2D::fillRectangle(bgRect, rectColor);
+        D2D::drawText(textPos, name + " | " + distanceStr + " | " + hpStr,
                              UIColor(255, 255, 255, 255), scale, true);
 
         if(showHealthBar) {
@@ -121,17 +121,17 @@ void TargetHUD::onD2DRender() {
             Vec4<float> healthBg(bgRect.x, bgRect.y - 2.f, bgRect.z, bgRect.y);
             Vec4<float> healthFg(bgRect.x, bgRect.y - 2.f,
                                  bgRect.x + (bgRect.z - bgRect.x) * healthRatio, bgRect.y);
-            RenderUtil::fillRectangle(healthBg, UIColor(40, 40, 40, int(255 * hudOpacity)));
+            D2D::fillRectangle(healthBg, UIColor(40, 40, 40, int(255 * hudOpacity)));
             int red = std::clamp(int((1.0f - healthRatio) * 320), 0, 255);
             int green = std::clamp(int(healthRatio * 320), 0, 255);
-            RenderUtil::fillRectangle(healthFg, UIColor(red, green, 60, int(255 * hudOpacity)));
+            D2D::fillRectangle(healthFg, UIColor(red, green, 60, int(255 * hudOpacity)));
         }
 
         if(underlineMode == 1)
-            RenderUtil::fillRectangle(
+            D2D::fillRectangle(
                 Vec4<float>(bgRect.x, bgRect.w - 1.f * scale, bgRect.z, bgRect.w), tagColor);
         if(underlineMode == 2)
-            RenderUtil::drawRectangle(bgRect, tagColor, 1.f);
+            D2D::drawRectangle(bgRect, tagColor, 1.f);
     }
 }
 

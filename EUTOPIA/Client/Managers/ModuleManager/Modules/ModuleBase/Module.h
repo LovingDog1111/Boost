@@ -2,30 +2,28 @@
 #include <string>
 #include <vector>
 #include "../../../../../SDK/GlobalInstance.h"
-
-#include "../../../../../Utils/RenderUtil.h"
+#include "../../../../../Renderer/D2D.h"
+#include "../../../../../Utils/DrawUtil.h"
 #include "../../../../../Utils/TimerUtil.h"
+#include "../../../../../Utils/Minecraft/PlayerUtil.h"
+#include "../../../../../Utils/Minecraft/TargetUtil.h"
+#include "../../../../../Utils/Minecraft/WorldUtil.h"
 #include "../../../../../Libs/json.hpp"
 
-#include "Settings/Setting.h"
 #include "Settings/BoolSetting.h"
 #include "Settings/ColorSetting.h"
 #include "Settings/EnumSetting.h"
 #include "Settings/KeybindSetting.h"
 #include "Settings/SliderSetting.h"
-#include "../../../../../Utils/StringObfuscator.h"
-#include "../../../../../SDK/Render/MinecraftUIRenderContext.h"
-#include "../../../../../SDK/World/Inventory/ContainerScreenController.h"
+#include "Settings/StringSetting.h"
+#include "Settings/Vec3Setting.h"
 
 enum class Category {
 	COMBAT = 0,
 	MOVEMENT = 1,
 	RENDER = 2,
 	PLAYER = 3,
-	WORLD = 4,
-	MISC = 5,
-	CLIENT = 6
-};
+	CLIENT = 4, MISC = 5, WORLD = 6 };
 
 class Module {
 private:
@@ -38,37 +36,22 @@ private:
 	int toggleMode = 0;
 
 	std::vector<Setting*> settings;
-	std::string requiredGroup = Obf::STR_DEFAULT();
-	// Permission hierarchy helper
-	static int groupLevel(const std::string& g) {
-		if (g == Obf::STR_DEFAULT()) return 0;
-		if (g == Obf::STR_PREMIUM()) return 1;
-		if (g == Obf::STR_DEV()) return 2;
-		return 0;
-	}
-public:
-	static inline std::string currentGroup = "default";
-	static void setCurrentGroup(const std::string& g) { currentGroup = g; }
-	static const std::string& getCurrentGroup() { return currentGroup; }
-	void setRequiredGroup(const std::string& g) { requiredGroup = g; }
-	const std::string& getRequiredGroup() const { return requiredGroup; }
-protected:
-	bool hasPermission() const { return groupLevel(currentGroup) >= groupLevel(requiredGroup); }
-	inline Setting* registerSetting(Setting* setting) {
-		this->settings.push_back(setting);
-		return setting;
-	}
 public:
 	//Arraylist stuff
 	float arraylistAnim = 0.f;
 
 	//ClickGUI stuff
 	float selectedAnim = 0.f;
-	float enabledAnim = 0.f;
+	float enabledAnimWidth = 0.f;
+	UIColor currentTextColor;
 	bool extended = false;
-  
-	// GUI填充动画进度
-	float fillAnim = 0.f;
+	float currentHeight = 0.f;
+protected:
+	inline Setting* registerSetting(Setting* setting) {
+		this->settings.push_back(setting);
+		return setting;
+	}
+public:
 	Module(std::string moduleName, std::string des, Category c, int k = 0x0);
 	~Module();
 
@@ -80,17 +63,14 @@ public:
 		return this->description;
 	}
 
-	inline Category getCategory() {
+	inline Category getCategory() { 
 		return this->category;
 	}
 
 	inline std::vector<Setting*>& getSettingList() {
 		return this->settings;
 	}
-    int* modulePagePtr = nullptr;
-   
-
-   public:
+public:
 	virtual std::string getModeText();
 	virtual bool isEnabled();
 	virtual bool isVisible();
@@ -107,17 +87,13 @@ public:
 	virtual void onNormalTick(LocalPlayer* localPlayer);
 	virtual void onLevelTick(Level* level);
 	virtual void onUpdateRotation(LocalPlayer* localPlayer);
-    virtual void onSendPacket(Packet* packet);
-    virtual void onSendPacketWithCancel(Packet* packet, bool* cancel);
-	virtual void onReceivePacket(Packet* packet,bool *cancel);
+	virtual void onSendPacket(Packet* packet);
 	virtual void onD2DRender();
 	virtual void onMCRender(MinecraftUIRenderContext* renderCtx);
-    virtual void onLevelRender();
-    virtual void onRenderActorBefore(Actor*actor ,Vec3<float>*camera,Vec3<float>*pos);
-    virtual void onRenderActorAfter(Actor* actor);
-    virtual void onChestScreen(ContainerScreenController* csc);
+	virtual void onLevelRender();
 	virtual void onLoadConfig(void* conf);
 	virtual void onSaveConfig(void* conf);
-    virtual void onRenderNameTag(Actor* actor, Vec3<float>* pos, bool unknownFlag, float delta,
-                                 mce::Color* color);
+	virtual void onAttack(Actor* actor, bool& cancel);
+	virtual void onBuild(const BlockPos& blockPos, const uint8_t face, bool& cancel);
+	virtual void onRecievePacket(Packet* packet, bool* cancel);
 };

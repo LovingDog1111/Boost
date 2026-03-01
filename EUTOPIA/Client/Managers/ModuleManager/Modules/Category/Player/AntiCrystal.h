@@ -28,5 +28,5 @@ class AntiCrystal : public Module {
     //    }
     //}
     void onSendPacket (Packet*packet) override;
-    void onReceivePacket(Packet* packet,bool* cancel) override;
+    void onRecievePacket(Packet* packet,bool* cancel) override;
 };

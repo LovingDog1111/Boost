@@ -1,7 +1,7 @@
 #pragma once
 #include <Windows.h>
 
-#include<RenderUtil.h>
+#include "../../../../../Renderer/D2D.h"
 #include "../../../../Client.h"
 #include "../FuncHook.h"
 
@@ -23,7 +23,7 @@ class PresentHook : public FuncHook {
             currentTime = std::chrono::steady_clock::now();
 
             if(initDeltaTime)
-                RenderUtil::deltaTime =
+                D2D::deltaTime =
                     std::chrono::duration_cast<std::chrono::milliseconds>(currentTime - lastTime)
                         .count() /
                     1000.0f;
@@ -41,9 +41,9 @@ class PresentHook : public FuncHook {
             static_cast<ID3D12Device5*>(d3d12Device)->RemoveDevice();
             return oPresent(swapChain, syncInterval, flags);
         } else if(SUCCEEDED(swapChain->GetDevice(IID_PPV_ARGS(&d3d11Device)))) {
-            RenderUtil::NewFrame(swapChain, d3d11Device, (float)GetDpiForWindow(window));
-            RenderUtil::Render();
-            RenderUtil::EndFrame();
+            D2D::NewFrame(swapChain, d3d11Device, (float)GetDpiForWindow(window));
+            D2D::Render();
+            D2D::EndFrame();
 
             d3d11Device->Release();
         }

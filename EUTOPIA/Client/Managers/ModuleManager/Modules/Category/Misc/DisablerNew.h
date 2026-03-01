@@ -15,7 +15,7 @@ class Actor;
 class DisablerNew : public Module {
    public:
     DisablerNew();
-    void onReceivePacket(Packet* packet, bool* cancel) override;
+    void onRecievePacket(Packet* packet, bool* cancel) override;
     static DisablerNew* getInstance() {
         static DisablerNew instance;
         return &instance;

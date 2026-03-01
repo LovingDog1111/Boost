@@ -225,20 +225,7 @@ void TestModule::onSendPacket(Packet* packet) {
     return m + ":" + s;
 }
 
-void TestModule::onD2DRender() {
-    auto localPlayer = GI::getLocalPlayer();
-    if(!localPlayer)
-        return;
-    Vec4<float> rect1(200,200, 300, 400);
-    RenderUtil::drawAdvancedGlowEffect(Vec2<float>(800, 600), 10.0f, UIColor(0, 0, 0, 120),
-                                       UIColor(255, 255, 255, 120), 120.f, 1.f, false
-                                      );
-    RenderUtil::drawRectGlowEffect(rect1, UIColor(0, 0, 0, 80), 20.f, 1.f);
-        // 示例1：使用自定义名称缓存图片
- /*   Vec4<float> rect1(50, 50, 200, 200);
-    RenderUtil::drawImageFromUrl(rect1, "https://img.remit.ee/api/file/BQACAgUAAyEGAASHRsPbAAJLfGiHA_EHnbxGAAG9bvplfLVOsgpjjQAC6RoAAkCiOVQHNWwc05FsYjYE.jpg", "my_avatar",1.f);
-    */
-    }
+void TestModule::onD2DRender() {}
 
 void TestModule::onLevelRender() {
         auto lp = GI::getLocalPlayer();
@@ -277,24 +264,7 @@ void TestModule::onMCRender(MinecraftUIRenderContext* mcr) {
 void TestModule::onDisable()
 {}
 
-void TestModule::onReceivePacket(Packet* packet, bool* cancel) {}
-
-void TestModule::onRenderActorBefore(Actor* entity, Vec3<float>* cameraTargetPos,
-                                     Vec3<float>* pos) {
-    auto lp = GI::getLocalPlayer();  ;
-    if(!lp || !entity)
-        return;
-
-    Vec3<float> sb(0, 0, 0);
-    if (entity->getActorTypeComponent()->id == ActorType::Player) {
-        cameraTargetPos = &sb;
-        pos = &sb;
-    }
-    
-    
-}
-
-void TestModule::onRenderActorAfter(Actor* entity) {}
+void TestModule::onRecievePacket(Packet* packet, bool* cancel) {}
 
 void TestModule::onEnable() {
 }

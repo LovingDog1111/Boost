@@ -153,7 +153,7 @@ void TargetInfo::onD2DRender() {
     Vec2<float> screen = GI::getClientInstance()->guiData->windowSizeReal;
 
     float baseScale = 0.8f;
-    float lineHeight = RenderUtil::getTextHeight("A", baseScale) + 3.f;
+    float lineHeight = D2D::getTextHeight("A", baseScale) + 3.f;
     float padding = 6.f;
     float panelWidth = 0.f;
     int lineCount = 0;
@@ -187,7 +187,7 @@ void TargetInfo::onD2DRender() {
     std::string hitText = "Hit Difficulty: " + hitDifficulty;
 
     auto calc = [&](const std::string& s) {
-        panelWidth = std::max(panelWidth, RenderUtil::getTextWidth(s, baseScale));
+        panelWidth = std::max(panelWidth, D2D::getTextWidth(s, baseScale));
         lineCount++;
     };
 
@@ -233,13 +233,13 @@ void TargetInfo::onD2DRender() {
     }
 
     Vec4<float> bg(x, y, x + panelWidth * targetScale, y + panelHeight * targetScale);
-    RenderUtil::fillRoundedRectangle(bg, UIColor(0, 0, 0, 170), 8.f * targetScale);
-    RenderUtil::drawRoundedRectangle(bg, accent, 8.f * targetScale, 1.f);
+    D2D::fillRectangle(bg, UIColor(0, 0, 0, 170));
+    D2D::drawRectangle(bg, accent, 8.f * targetScale);
 
     float textY = y + padding * targetScale;
 
     auto drawLine = [&](const std::string& s, const UIColor& c) {
-        RenderUtil::drawText({x + padding, textY}, s, c, baseScale * targetScale);
+        D2D::drawText({x + padding, textY}, s, c, baseScale * targetScale);
         textY += lineHeight * targetScale;
     };
 

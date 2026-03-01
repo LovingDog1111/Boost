@@ -97,14 +97,14 @@ void DeathPos::onD2DRender() {
         Vec2<float> screenPos;
 
         if(Matrix::WorldToScreen(offsetPos, screenPos)) {
-            float width = RenderUtil::getTextWidth(coordText, coordSize);
-            float height = RenderUtil::getTextHeight(coordText, coordSize);
+            float width = D2D::getTextWidth(coordText, coordSize);
+            float height = D2D::getTextHeight(coordText, coordSize);
 
             Vec4<float> bg(screenPos.x - width / 2.f - 4.f, screenPos.y - height / 2.f - 2.f,
                            screenPos.x + width / 2.f + 4.f, screenPos.y + height / 2.f + 2.f);
 
-            RenderUtil::fillRectangle(bg, UIColor(0, 0, 0, 120));
-            RenderUtil::drawText(Vec2<float>(bg.x + 4.f, bg.y + 2.f), std::string(coordText),
+            D2D::fillRectangle(bg, UIColor(0, 0, 0, 120));
+            D2D::drawText(Vec2<float>(bg.x + 4.f, bg.y + 2.f), std::string(coordText),
                                  textColor, coordSize, true);
         }
     }

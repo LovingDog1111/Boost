@@ -57,12 +57,12 @@ void NameTags2::onD2DRender() {
                 std::string distanceText = " [" + std::to_string((int)distance) + "]";
 
                 float textSize = 1.f * tagSize;
-                float nameWidth = RenderUtil::getTextWidth(name, textSize);
+                float nameWidth = D2D::getTextWidth(name, textSize);
                 float distWidth =
-                    showDistance ? RenderUtil::getTextWidth(distanceText, textSize) : 0.f;
+                    showDistance ? D2D::getTextWidth(distanceText, textSize) : 0.f;
                 float totalWidth = nameWidth + distWidth;
 
-                float textHeight = RenderUtil::getTextHeight(name, textSize);
+                float textHeight = D2D::getTextHeight(name, textSize);
                 float textPadding = 1.f * textSize;
                 Vec2<float> textPos =
                     Vec2<float>(pos.x - totalWidth / 2.f, pos.y - textHeight / 2.f);
@@ -74,17 +74,17 @@ void NameTags2::onD2DRender() {
                     Vec4<float>(rectPos.x, rectPos.w - 1.f * textSize, rectPos.z, rectPos.w);
 
                 // Draw background box
-                RenderUtil::fillRectangle(rectPos, UIColor(0, 0, 0, (int)(255 * opacity)));
+                D2D::fillRectangle(rectPos, UIColor(0, 0, 0, (int)(255 * opacity)));
 
                 // Optional underline
                 if(underline) {
-                    RenderUtil::fillRectangle(underlineRect, UIColor(255, 255, 255, 255));
+                    D2D::fillRectangle(underlineRect, UIColor(255, 255, 255, 255));
                 }
 
                 // Name color (green if friend)
                 UIColor nameColor = FriendManager::isFriend(name) ? UIColor(0, 255, 0, 255)
                                                              : UIColor(255, 255, 255, 255);
-                RenderUtil::drawText(textPos, name, nameColor, textSize, true);
+                D2D::drawText(textPos, name, nameColor, textSize, true);
 
                 // Distance color
                 if(showDistance) {
@@ -98,7 +98,7 @@ void NameTags2::onD2DRender() {
                     }
 
                     Vec2<float> distPos = Vec2<float>(textPos.x + nameWidth, textPos.y);
-                    RenderUtil::drawText(distPos, distanceText, distanceColor, textSize, true);
+                    D2D::drawText(distPos, distanceText, distanceColor, textSize, true);
                 }
             }
         }

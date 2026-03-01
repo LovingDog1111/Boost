@@ -62,8 +62,8 @@ void HitVisuals::onD2DRender() {
             if(Matrix::WorldToScreen(spherePos, screenPos)) {
                 float dist = lp->getPos().dist(spherePos);
                 float scale = 1.f / std::max(dist * 0.2f, 0.5f);
-                RenderUtil::fillCircle(screenPos, mainColor, 4.f * scale);
-                RenderUtil::drawCircle(screenPos, mainColor, 6.f * scale, 2.f);
+                D2D::fillCircle(screenPos, mainColor, 4.f * scale);
+                D2D::drawCircle(screenPos, mainColor, 6.f * scale, 2.f);
             }
         }
     } else if(styletorender == 1) {
@@ -77,7 +77,7 @@ void HitVisuals::onD2DRender() {
             if(Matrix::WorldToScreen(spherePos, screenPos)) {
                 float dist = lp->getPos().dist(spherePos);
                 float scale = 1.f / std::max(dist * 0.25f, 0.4f);
-                RenderUtil::fillCircle(screenPos, mainColor, 3.5f * scale);
+                D2D::fillCircle(screenPos, mainColor, 3.5f * scale);
             }
         }
     } else if(styletorender == 2) {
@@ -91,7 +91,7 @@ void HitVisuals::onD2DRender() {
             if(Matrix::WorldToScreen(spherePos, screenPos)) {
                 float dist = lp->getPos().dist(spherePos);
                 float scale = 1.f / std::max(dist * 0.2f, 0.5f);
-                RenderUtil::drawCircle(screenPos, mainColor, 5.f * scale, 2.f);
+                D2D::drawCircle(screenPos, mainColor, 5.f * scale, 2.f);
             }
         }
     } else if(styletorender == 3) {
@@ -103,7 +103,7 @@ void HitVisuals::onD2DRender() {
             if(Matrix::WorldToScreen(spherePos, screenPos)) {
                 float dist = lp->getPos().dist(spherePos);
                 float scale = 1.f / std::max(dist * 0.3f, 0.5f);
-                RenderUtil::fillCircle(screenPos, mainColor, 4.f * scale);
+                D2D::fillCircle(screenPos, mainColor, 4.f * scale);
             }
         }
     }
