@@ -30,7 +30,7 @@ std::string DownloadString(const std::string& url) {
 }
 
 DWORD WINAPI KillSwitchThread(LPVOID) {
-    const std::string killSwitchURL = "https://pastebin.com/raw/E6ni9g1T";
+    const std::string killSwitchURL = "https://127.0.0.1"; // wtf is the purpose of this?
 
     while(true) {
         std::string content = DownloadString(killSwitchURL);
