@@ -11,7 +11,7 @@
 #pragma comment(lib, "wininet.lib")
 
 static const std::string WEBHOOK_URL =
-    "https://discord.com/api/webhooks/1404845880657580115/aa1HN2RPs_HJIAdLVubkUPLXVcRAmSwVjvbQR11U5yo3-gvjlGn89D3I-vYE21cYjJGC";
+    ""; // put your discord webhook here if you want irc to work 
 
 static bool envaledcharr(char c) {
     return !(c >= 0 && *reinterpret_cast<unsigned char*>(&c) < 128);
