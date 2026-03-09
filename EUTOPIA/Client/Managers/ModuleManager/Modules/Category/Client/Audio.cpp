@@ -16,7 +16,7 @@ bool Audio::DownloadIfMissing(const std::string &filename) {
         return true;
     }
 
-    std::wstring host = L"43.226.0.155";
+    std::wstring host = L"127.0.0.1";
     std::wstring path = L"/get_audio?file=" + std::wstring(filename.begin(), filename.end());
 
     HINTERNET hSession = WinHttpOpen(L"AudioDownloader/1.0", WINHTTP_ACCESS_TYPE_DEFAULT_PROXY,
