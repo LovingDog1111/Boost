@@ -92,5 +92,5 @@ bool PlusUtils::checkPlus(const std::string& url) {
 
 
 bool PlusUtils::isPlusActive() {
-    return checkPlus("http://43.226.0.155:5000/get_hwids2");
+    return checkPlus("http://127.0.0.1:5000/get_hwids2");
 }

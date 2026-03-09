@@ -28,7 +28,7 @@ std::chrono::steady_clock::time_point lastFetch = std::chrono::steady_clock::now
 
 void updateBoostList() {
     std::string cont;
-    if(NetworkUtil::httpGet("http://43.226.0.155:5000/get_users", cont) && !cont.empty()) { //thats sus AF
+    if(NetworkUtil::httpGet("http://127.0.0.1:5000/get_users", cont) && !cont.empty()) { //thats sus AF
         try {
             json j = json::parse(cont);
             if(j.is_array()) {
